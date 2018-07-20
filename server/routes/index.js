@@ -1,8 +1,9 @@
 import express from 'express';
-import records from '../controllers/records';
+import articles from '../controllers/articles';
 
 const router = express.Router();
 
-router.get('/all', records.getAll);
+router.get('/all', articles.getAll);
+router.post('/post', articles.create);
 
 module.exports = router;
