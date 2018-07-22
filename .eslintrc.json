@@ -40,6 +40,7 @@
     "no-undef": 0,
     "jsx-quotes": 1,
     "class-methods-use-this": 0,
+    "import/no-unresolved": "off",
     "react/display-name": [1, {
       "ignoreTranspilerName": false
     }],

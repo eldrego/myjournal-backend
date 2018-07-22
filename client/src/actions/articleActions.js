@@ -9,6 +9,7 @@ export const fetchAllArticles = articles => ({
 export const fetchArticles = () => (dispatch) => {
   axios.get('/api/v1/all')
     .then((response) => {
+      console.log(response.data.articles);
       dispatch(fetchAllArticles(response.data.articles));
     })
     .catch((error) => {
@@ -26,7 +27,7 @@ export const addNewArticle = article => ({
 
 export const addArticle = newArticle => (dispatch) => {
   console.log(newArticle);
-  axios.post('/api/v1/post', newArticle)
+  axios.post('/api/v1/create', newArticle)
     .then((response) => {
       dispatch(addNewArticle(response.data.article));
     })

@@ -28,6 +28,7 @@ class Article extends Component {
         </div>
       );
     });
+
     return (
       <div>
         Article Listing
@@ -39,7 +40,7 @@ class Article extends Component {
 
 Article.propTypes = {
   fetchArticles: PropTypes.func.isRequired,
-  articles: PropTypes.array.isRequired,
+  articles: PropTypes.array,
   newArticle: PropTypes.object
 };
 

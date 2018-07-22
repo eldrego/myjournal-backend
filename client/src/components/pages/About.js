@@ -5,6 +5,7 @@ class Home extends Component {
     return (
       <div>
         About page
+        <div className="fullimage"/>
       </div>
     );
   }

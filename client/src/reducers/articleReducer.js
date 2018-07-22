@@ -1,6 +1,5 @@
 import { ADD_ARTICLE, FETCH_ARTICLES } from '../constants/actionTypes';
 
-
 const initialState = {
   items: [],
   item: {}
@@ -9,7 +8,6 @@ const initialState = {
 const articleReducer = (state = initialState, action) => {
   switch (action.type) {
   case ADD_ARTICLE:
-  console.log(action);
     return {
       ...state,
       items: [...state.items, action.payload]
