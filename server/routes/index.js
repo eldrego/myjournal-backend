@@ -14,7 +14,8 @@ router.post('/register', users.register);
 router.post('/login', users.login);
 
 // Articles
-router.get('/all', articles.getAll);
+router.get('/articles', articles.getAll);
+router.get('/message', articles.message);
 
 // Articles with Authorization
 router.post('/create', articles.create);

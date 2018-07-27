@@ -6,12 +6,14 @@ const ArticlesSchema = new mongoose.Schema({
   },
   title: {
     type: String,
+    required: true,
   },
   tagList: {
     type: Array,
   },
   content: {
     type: String,
+    required: true,
   },
   createdAt: {
     type: Date,

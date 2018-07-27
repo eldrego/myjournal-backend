@@ -7,7 +7,7 @@ export const fetchAllArticles = articles => ({
 });
 
 export const fetchArticles = () => (dispatch) => {
-  axios.get('/api/v1/all')
+  axios.get('/api/v1/articles')
     .then((response) => {
       console.log(response.data.articles);
       dispatch(fetchAllArticles(response.data.articles));
