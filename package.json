@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "npm run test:server && npm run test:client",
-    "test:server": "npm run client-prod && cross-env NODE_ENV=test && npm run cover",
+    "test:server": "npm run prod:client && cross-env NODE_ENV=test && npm run cover",
     "test:client": "jest --coverage",
     "dev": "npm run dev:client && npm run dev:server",
     "dev:server": "cross-env NODE_ENV=dev nodemon server/index.js --exec babel-node",
