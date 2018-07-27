@@ -7,7 +7,7 @@ class Header extends Component {
       <header >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">AppName</a>
+            <a className="navbar-brand" href="#">My Journal</a>
             <button className="navbar-toggler" type="button"
               data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false"
@@ -20,7 +20,13 @@ class Header extends Component {
                   <Link className="nav-link" to="/">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/About">About</Link>
+                  <Link className="nav-link" to="/about">About</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Register</Link>
                 </li>
               </ul>
             </div>

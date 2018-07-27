@@ -1,1 +1,2 @@
-export const ADD_RECORD = 'ADD_RECORD';
+export const ADD_ARTICLE = 'ADD_ARTICLE';
+export const FETCH_ARTICLES = 'FETCH_ARTICLES';
