@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
+import config from './config';
 
-require('dotenv').config();
+const { db: { uri } } = config;
 
-mongoose.connect(process.env.DB,
-  { useNewUrlParser: true });
+mongoose.connect(uri, { useNewUrlParser: true });
 const database = mongoose.connection;
 
 export default database;
