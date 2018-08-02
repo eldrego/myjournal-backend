@@ -1,19 +1,19 @@
-import { createStore, applyMiddleware } from 'redux';
-
-import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers';
 
+const enhancer = compose(
+  applyMiddleware(createLogger(), thunk)
+);
+
 /* eslint-disable no-underscore-dangle */
-const store = createStore(
+export const store = createStore(
   reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(
-    createLogger(),
-    thunkMiddleware
-  )
+  composeWithDevTools(enhancer)
 );
 /* eslint-enable */
 
-export default store;
+export const persistor = persistStore(store);

@@ -69,6 +69,3 @@ dist
 
 npm-scripts.txt
 initUsers.js
-
-fixtures
-helpers

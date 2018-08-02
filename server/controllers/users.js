@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import User from '../models/User';
-import settings from '../config/settings';
+import generateToken from '../helpers/generateToken';
 
 const users = {
   register(req, res) {
@@ -33,33 +33,48 @@ const users = {
   },
 
   login(req, res) {
-    User.findOne({ username: req.body.username }, (err, user) => {
-      if (err) throw err;
-
+    User.findOne({ username: req.body.username }).then((user) => {
+      // check if password matches
       if (!user) {
-        res.status(401).send({
+        res.status(200).send({
           success: false,
           message: 'Authentication failed. User not found.'
         });
-      } else {
-      // check if password matches
-        user.comparePassword(req.body.password, (err, isMatch) => {
-          if (isMatch && !err) {
-          // if user is found and password is right create a token
-            const token = jwt.sign(user.toString(), settings.secret);
-            // return the information including token as JSON
-            res.json({
-              success: true,
-              token: `JWT_${token}`
-            });
-          } else {
-            res.status(401).send({
-              success: false,
-              message: 'Authentication failed. Wrong password.'
-            });
-          }
-        });
       }
+
+      user.comparePassword(req.body.password, (err, isMatch) => {
+        if (isMatch && !err) {
+          const signature = {
+            username: user.username,
+            id: user._id,
+          };
+
+          // if user is found and password is right create a token
+          const token = generateToken(signature);
+
+          res.json({
+            success: true,
+            message: 'User Logged in successfully.',
+            token: `${token}`
+          });
+        } else {
+          res.status(200).send({
+            success: false,
+            message: 'Authentication failed. Wrong password.'
+          });
+        }
+      });
+    }).catch((error) => {
+      res.status(404).send({
+        success: false, message: 'failure', error
+      });
+    });
+  },
+
+  validateUser(req, res) {
+    res.status(200).send({
+      success: false,
+      message: 'Validate will work here.'
     });
   },
 };

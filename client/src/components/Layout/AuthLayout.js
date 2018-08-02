@@ -1,36 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Route,
+  Switch
+} from 'react-router-dom';
 
-class AuthLayout extends Component {
-  render() {
-    return (
-      <div className="login-page">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6 fullheight fullimage">
-              <div className="row"/>
-            </div>
-            <div className="col-md-6">
-              <div className="row justify-content-md-center">
-                <div className="col-md-8">
-                  <div className="auth-box form-margin">
-                    <div className="logo-box">
-                      <img src={'logo.png'}/>
-                    </div>
-                    <main className="">{this.props.children}</main>
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+
+const AuthLayout = (props) => {
+  return (
+    <div className="login-page">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="row justify-content-md-center">
+              <div className="col-md-4">
+                <div className="auth-box form-margin">
+                  <div className="logo-box">
                   </div>
+                  <Switch>
+                    <Route path={`${props.match.path}/login`} exact component={Login} />
+                    <Route path={`${props.match.path}/register`} exact component={Register} />
+                  </Switch>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 AuthLayout.propTypes = {
-  children: PropTypes.object.isRequired,
+  match: PropTypes.object,
 };
 
 export default AuthLayout;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
+import checkAuth from '../../utils/checkAuth';
 
 
 class Register extends Component {
@@ -22,6 +23,10 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.verifyLogin();
+  }
+
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -38,7 +43,13 @@ class Register extends Component {
       fullname: this.state.fullname,
     };
 
-    this.props.registerUser(userDetails);
+    this.props.registerUser(userDetails, this.props.history);
+  }
+
+  verifyLogin() {
+    if ((checkAuth()) && (this.props.loggedIn)) {
+      this.props.history.push('/');
+    }
   }
 
   render() {
@@ -48,7 +59,7 @@ class Register extends Component {
         <div className="login-box">
           <div className="auth-header">
             <span className="auth-intro-text">
-              Welcome. Please Register. {this.props.success}
+              <h4>Register</h4>
             </span>
           </div>
 
@@ -108,7 +119,7 @@ class Register extends Component {
                 <Link className="link float-right" to="/">Home</Link>
               </div>
               <div className="col-md-5">
-                <Link className="link float-left" to="/Login">Login</Link>
+                <Link className="link float-left" to="/auth/Login">Login</Link>
               </div>
             </div>
           </div>
@@ -120,13 +131,15 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  history: PropTypes.object,
   message: PropTypes.string,
   success: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   success: state.auth.success,
-  message: state.auth.message
+  message: state.auth.message,
+  loggedIn: state.auth.loggedIn
 });
 
 export default connect(mapStateToProps, { registerUser })(Register);
