@@ -16,6 +16,9 @@ module.exports = {
     path: DIST_DIR,
     filename: '[name].[chunkhash].js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module: {
     rules: [
       {
