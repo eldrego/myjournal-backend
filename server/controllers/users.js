@@ -35,13 +35,6 @@ const users = {
   login(req, res) {
     User.findOne({ username: req.body.username }).then((user) => {
       // check if password matches
-      if (!user) {
-        res.status(200).send({
-          success: false,
-          message: 'Authentication failed. User not found.'
-        });
-      }
-
       user.comparePassword(req.body.password, (err, isMatch) => {
         if (isMatch && !err) {
           const signature = {
@@ -51,8 +44,7 @@ const users = {
 
           // if user is found and password is right create a token
           const token = generateToken(signature);
-
-          res.json({
+          res.status(200).send({
             success: true,
             message: 'User Logged in successfully.',
             token: `${token}`
@@ -64,9 +56,18 @@ const users = {
           });
         }
       });
+
+      // if (!user) {
+      //   res.status(404).send({
+      //     success: false,
+      //     message: 'Authentication failed. User not found.'
+      //   });
+      // }
     }).catch((error) => {
       res.status(404).send({
-        success: false, message: 'failure', error
+        success: false,
+        message: 'Authentication failed.',
+        error: `${error}`
       });
     });
   },
