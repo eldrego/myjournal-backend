@@ -14,7 +14,16 @@ module.exports = {
   entry: { main: `${SRC_DIR}/index.js` },
   output: {
     path: DIST_DIR,
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].bundle.js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [

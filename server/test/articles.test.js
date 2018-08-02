@@ -6,23 +6,52 @@ const chai = require('chai');
 
 const server = require('../index.js');
 const Article = require('../models/Article');
+const User = require('../models/User');
 
 const should = chai.should();
 chai.use(chaiHttp);
 
-// const testData = require('../fixtures/testData.json');
+const registerDetails = {
+  username: 'moe',
+  password: 'password',
+  email: 'moe@email.com'
+};
 
-describe('Article Controller', () => {
+const loginDetails = {
+  username: 'moe',
+  password: 'password',
+};
+
+describe('Feature', () => {
+  let token = null;
+  before((done) => {
+    User.create(registerDetails, () => {});
+    chai.request(server)
+      .post('/api/v1/login')
+      .send(loginDetails)
+      .end((error, res) => {
+        token = res.body.token;
+        done();
+      });
+  });
+
   beforeEach((done) => {
     Article.remove({}, () => {
       done();
     });
   });
 
-  describe('/GET Articles', () => {
-    it('it should GET all articles', (done) => {
+  after((done) => {
+    User.remove({}, () => {
+      done();
+    });
+  });
+
+  describe('Get All Articles', () => {
+    it('should GET all articles', (done) => {
       chai.request(server)
         .get('/api/v1/articles')
+        .set('Authorization', token)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -36,8 +65,8 @@ describe('Article Controller', () => {
     });
   });
 
-  describe('/POST Article', () => {
-    it('it should not POST an article without content', (done) => {
+  describe('Create Article', () => {
+    it('should not POST an article without content', (done) => {
       const article = {
         title: 'The Lord of the Rings',
       };
@@ -46,6 +75,7 @@ describe('Article Controller', () => {
 
       chai.request(server)
         .post('/api/v1/create')
+        .set('Authorization', token)
         .send(article)
         .end((error, res) => {
           res.should.have.status(400);
@@ -57,7 +87,7 @@ describe('Article Controller', () => {
         });
     });
 
-    it('it should successfully POST an article with title and content', (done) => {
+    it('should successfully POST an article with title and content', (done) => {
       const article = {
         title: 'The Lord of the Rings',
         content: 'The Lord of the Rings is a film series directed by Peter Jackson.',
@@ -65,6 +95,7 @@ describe('Article Controller', () => {
 
       chai.request(server)
         .post('/api/v1/create')
+        .set('Authorization', token)
         .send(article)
         .end((error, res) => {
           res.should.have.status(200);

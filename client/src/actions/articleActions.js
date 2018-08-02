@@ -7,9 +7,9 @@ export const fetchAllArticles = articles => ({
 });
 
 export const fetchArticles = () => (dispatch) => {
+  axios.defaults.headers.common.Authorization = localStorage.token;
   axios.get('/api/v1/articles')
     .then((response) => {
-      console.log(response.data.articles);
       dispatch(fetchAllArticles(response.data.articles));
     })
     .catch((error) => {
@@ -26,7 +26,7 @@ export const addNewArticle = article => ({
 });
 
 export const addArticle = newArticle => (dispatch) => {
-  console.log(newArticle);
+  axios.defaults.headers.common.Authorization = localStorage.token;
   axios.post('/api/v1/create', newArticle)
     .then((response) => {
       dispatch(addNewArticle(response.data.article));

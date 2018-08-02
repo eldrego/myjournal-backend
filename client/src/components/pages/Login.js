@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
+import checkAuth from '../../utils/checkAuth';
 
 class Login extends Component {
   constructor(props) {
@@ -13,6 +17,10 @@ class Login extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.verifyLogin();
   }
 
   onChange(event) {
@@ -29,19 +37,26 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    console.log(userCredentials);
+    this.props.loginUser(userCredentials, this.props.history);
+  }
 
-    // this.props.addArticle(article);
+  verifyLogin() {
+    if ((checkAuth()) && (this.props.loggedIn)) {
+      this.props.history.push('/');
+    }
   }
 
   render() {
+    const { loggedIn, message } = this.props;
+    const loginStatus = loggedIn ? message : message;
+
     return (
       <div>
 
         <div className="login-box">
           <div className="auth-header">
             <span className="auth-intro-text">
-              Welcome. Please login.
+              <h4>Login</h4>
             </span>
           </div>
 
@@ -73,6 +88,9 @@ class Login extends Component {
             <button
               className="col-md-12 btn btn-journal"
               type="submit">Submit</button>
+
+            { loginStatus }
+
           </form>
           <div className="login-footer">
             <div className="row justify-content-md-center">
@@ -80,7 +98,7 @@ class Login extends Component {
                 <Link className="link float-right" to="/">Home</Link>
               </div>
               <div className="col-md-5">
-                <Link className="link float-left" to="/Register">Register</Link>
+                <Link className="link float-left" to="/auth/register">Register</Link>
               </div>
             </div>
           </div>
@@ -90,4 +108,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  history: PropTypes.object,
+  message: PropTypes.string,
+  success: PropTypes.bool,
+  loggedIn: PropTypes.bool,
+};
+
+const mapStateToProps = state => ({
+  success: state.auth.success,
+  message: state.auth.message,
+  loggedIn: state.auth.loggedIn
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);

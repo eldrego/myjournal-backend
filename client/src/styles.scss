@@ -4,9 +4,10 @@
 
 $basic-font-stack: 'PT Sans', sans-serif;
 $font-stack: 'Encode Sans Expanded', sans-serif;
+$header-font-stack: 'Arvo', serif;
+$form-font-stack: 'Arvo', serif;
 $font-weight: 100;
 $font-size: 0.8rem;
-$header-font-stack: 'Antic Slab', serif;
 $bacis-font-color: #666666;
 $header-font-color: #3399cc;
 $blue: #3399cc;
@@ -30,7 +31,7 @@ $orange: #ff9f01;
   border: 0px;
   // font-weight: 100;
   border-bottom: 1px solid #cacaca;
-  background-color: #fefefe;
+  background-color: #f1f1f1;
   box-shadow: none;
   // border-radius: 0;
   transition: none;
@@ -48,6 +49,17 @@ $orange: #ff9f01;
   // border-radius: 0px;
 }
 
+%logo-box {
+  margin: 0px;
+}
+
+// ***********
+// Margins and Paddings
+// ***********
+%margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
 // ***********
 // Declarations
 // ***********
@@ -56,7 +68,12 @@ body {
   font-family: $font-stack;
   color: $bacis-font-color;
   font-size: $font-size;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font-stack;
+  font-weight: 700;
 }
 
 button,
@@ -65,14 +82,14 @@ optgroup,
 select,
 textarea {
 	color: $bacis-font-color;
-  font-family: $font-stack;
+  font-family: $form-font-stack;
   font-weight: 100;
 	font: inherit ;
 	margin: 0;
 }
 
-.logo-box {
-  width: 40%;
+.login-logo-box {
+  @extend %logo-box;
   margin: 0px auto;
   padding: 0 0 40px 0;
 }
@@ -84,7 +101,7 @@ textarea {
 .login-box {
   @extend %border-radius;
   padding: 38px;
-  background-color: #E6E6E6;
+  // background-color: #E6E6E6;
 
   .login-footer {
     padding: 20px 0 0 0
@@ -126,16 +143,20 @@ textarea {
 
 form {
   .input-group{
-    padding-bottom: 5px;
+    @extend %margin-bottom-16;
+    font-family: $form-font-stack
   }
   button{
     top: 5px;
   }
   .form-control{
     @extend %input-field;
+    height: 62px;
+    padding:0 12px 0 19px;
   }
   .input-group-addon {
     @extend %input-group-addon;
+    padding: .375rem 1.4rem;
   }
 }
 
@@ -153,6 +174,16 @@ form {
   float: right;
 }
 
+.header-logo-box {
+  @extend %logo-box;
+  width: 40%;
+  padding: 0 0 0px 0;
+}
+
+.header-logo-box img{
+  width:100%;
+}
+
 footer {
   position: relative;
   bottom: 0;
@@ -161,6 +192,7 @@ footer {
   line-height: 60px;
   background-color: #f5f5f5;
 }
+
 
 // ***********
 // Bootsrap overides
@@ -173,6 +205,10 @@ footer {
     box-shadow: none;
 }
 
+.btn {
+  font-family: $form-font-stack
+}
+
 .btn-journal {
   color: #fff;
   background-color: $orange;
@@ -180,9 +216,11 @@ footer {
   font-weight: bold;
   padding:10px;
   font-size: $font-size;
+  height: 62px;
 }
 
 .form-control {
   font-size: $font-size;
   padding: 10px;
+  font-family: $form-font-stack
 }

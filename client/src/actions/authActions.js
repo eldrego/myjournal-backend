@@ -1,6 +1,9 @@
 import axios from 'axios';
+import decode from 'jwt-decode';
 import { authConstants } from '../constants';
-import history from '../helpers/history';
+// import history from '../utils/history';
+import setAuthHeader from '../utils/setAuthHeader';
+
 
 export const registerRequest = userDetails => ({
   type: authConstants.REGISTER_REQUEST,
@@ -17,14 +20,13 @@ export const registerFailure = error => ({
   payload: error
 });
 
-export const registerUser = userDetails => (dispatch) => {
+export const registerUser = (userDetails, redirect) => (dispatch) => {
   dispatch(registerRequest(userDetails));
 
   axios.post('/api/v1/register', userDetails)
     .then((response) => {
       dispatch(registerSuccess(response.data));
-
-      // history.push('/login');
+      redirect.push('/auth/login');
     })
     .catch((error) => {
       dispatch(registerFailure(error));
@@ -50,12 +52,18 @@ export const loginFailure = error => ({
   payload: error
 });
 
-export const loginUser = userDetails => (dispatch) => {
+export const loginUser = (userDetails, redirect) => (dispatch) => {
   dispatch(loginRequest());
   axios.post('/api/v1/login', userDetails)
     .then((response) => {
+      // console.log(response.data);
       dispatch(loginSuccess(response.data));
-      history.push('/');
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        const token = decode(response.data.token);
+        setAuthHeader(token);
+      }
+      redirect.push('/');
     })
     .catch((error) => {
       dispatch(loginFailure(error));

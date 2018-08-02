@@ -18,14 +18,4 @@ describe('Server', () => {
         done(err);
       });
   });
-
-  xit('should return 200 when you retrieve all records', (done) => {
-    request(server)
-      .get('/api/v1/all')
-      .expect(200)
-      .end((err) => {
-        expect('statusCode', 200);
-        done(err);
-      });
-  });
 });
