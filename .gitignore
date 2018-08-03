@@ -69,3 +69,4 @@ dist
 
 npm-scripts.txt
 initUsers.js
+testHelper.js

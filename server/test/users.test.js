@@ -7,8 +7,6 @@ const chai = require('chai');
 const server = require('../index.js');
 const User = require('../models/User');
 
-// const seedUser = require('../helper/seedUser');
-
 const should = chai.should();
 chai.use(chaiHttp);
 
@@ -88,8 +86,6 @@ describe('Feature', () => {
         .post('/api/v1/login')
         .send(fakeUserDetails)
         .end((error, res) => {
-          console.log(res.status);
-          console.log(res.body);
           res.should.have.status(404);
           res.body.should.be.a('object');
           res.body.success.should.equal(false);

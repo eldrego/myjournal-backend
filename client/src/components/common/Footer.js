@@ -5,7 +5,14 @@ class Footer extends Component {
     return (
       <footer className="footer">
         <div className="container">
-          <span className="text-muted">Footer items.</span>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="footer-content">
+                <span className="text-muted copy-text">Copyright © 2018
+                My Journal, Lagos, Nigeria.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
     );
