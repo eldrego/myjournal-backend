@@ -73,3 +73,37 @@ export const loginUser = (userDetails, redirect) => (dispatch) => {
     // always executed
     });
 };
+
+export const logoutRequest = () => ({
+  type: authConstants.LOGOUT_REQUEST,
+});
+
+export const logoutSuccess = logoutStatus => ({
+  type: authConstants.LOGOUT_SUCCESS,
+  payload: logoutStatus
+});
+
+export const logoutFailure = () => ({
+  type: authConstants.LOGOUT_FAILURE,
+  payload: false
+});
+
+export const logoutUser = redirect => (dispatch) => {
+  dispatch(logoutRequest());
+  localStorage.removeItem('token');
+  localStorage.removeItem('persist:auth');
+  const token = localStorage.getItem('token');
+  const persist = localStorage.getItem('persist:auth');
+
+  if ((!token) && (!persist)) {
+    const logoutStatus = {
+      message: 'User Successfully Logged out',
+      token: null,
+      success: true
+    };
+    dispatch(logoutSuccess(logoutStatus));
+    redirect.push('/');
+  } else {
+    dispatch(logoutFailure());
+  }
+};

@@ -13,7 +13,7 @@ import About from '../pages/About';
 const PageLayout = (props) => {
   return (
     <div>
-      <Header />
+      <Header history={props.history}/>
       <main className="container">
         <Switch>
           <Route path={`${props.match.path}/`} exact component={Home} />
@@ -27,6 +27,7 @@ const PageLayout = (props) => {
 
 PageLayout.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default PageLayout;

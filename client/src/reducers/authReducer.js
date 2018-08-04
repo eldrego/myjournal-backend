@@ -1,10 +1,11 @@
 import { authConstants } from '../constants';
 
 const initialState = {
+  user: '',
   success: false,
   message: '',
   token: '',
-  loggedIn: false,
+  loggedIn: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -35,8 +36,10 @@ const authReducer = (state = initialState, action) => {
     return {
       ...state,
       loggedIn: action.payload.success,
+      success: action.payload.success,
       token: action.payload.token,
-      message: action.payload.message
+      message: action.payload.message,
+      user: action.payload.details.username
     };
   case authConstants.LOGIN_FAILURE:
     return {
@@ -44,24 +47,23 @@ const authReducer = (state = initialState, action) => {
       loggedIn: action.payload.success,
       message: action.payload.message
     };
-  // case authConstants.VALIDATE_REQUEST:
-  //   return {
-  //     ...state,
-  //     loggedIn: false
-  //   };
-  // case authConstants.VALIDATE_SUCCESS:
-  //   return {
-  //     ...state,
-  //     loggedIn: action.payload.success,
-  //     token: action.payload.token,
-  //     message: action.payload.message
-  //   };
-  // case authConstants.VALIDATE_FAILURE:
-  //   return {
-  //     ...state,
-  //     loggedIn: action.payload.success,
-  //     message: action.payload.message
-  //   };
+  case authConstants.LOGOUT_REQUEST:
+    return {
+      ...state,
+      loggedIn: true
+    };
+  case authConstants.LOGOUT_SUCCESS:
+    return {
+      ...state,
+      loggedIn: !action.payload.success,
+      token: action.payload.token,
+      message: action.payload.message,
+      user: '',
+    };
+  case authConstants.LOGOUT_FAILURE:
+    return {
+      ...state
+    };
   default:
     return state;
   }

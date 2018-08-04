@@ -242,6 +242,12 @@ footer .footer-content {
 
 .navbar {
   padding: .5rem 0rem;
+  font-family: $form-font-stack;
+  color: #ffffff !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(255,255,255,1);
 }
 
 .navbar-collapse {

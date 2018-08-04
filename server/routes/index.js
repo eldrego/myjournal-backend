@@ -13,8 +13,6 @@ router.get('/api/v1/', (req, res) => {
 // Authentication
 router.post('/register', users.register);
 router.post('/login', users.login);
-router.post('/validateUser', users.validateUser);
-
 
 // Articles
 router.get('/articles', verifyToken, articles.getAll);

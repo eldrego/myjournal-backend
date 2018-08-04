@@ -21,7 +21,7 @@ const users = {
         if (err) {
           return res.json({
             success: false,
-            message: `${err} - Error`
+            message: `${err} - Error`,
           });
         }
         res.json({
@@ -33,7 +33,7 @@ const users = {
   },
 
   login(req, res) {
-    User.findOne({ username: req.body.username }).then((user) => {
+    User.findOne({ username: req.body.username }, { role: 0, email: 0 }).then((user) => {
       // check if password matches
       user.comparePassword(req.body.password, (err, isMatch) => {
         if (isMatch && !err) {
@@ -47,7 +47,11 @@ const users = {
           res.status(200).send({
             success: true,
             message: 'User Logged in successfully.',
-            token: `${token}`
+            token: `${token}`,
+            details: {
+              fullname: user.fullname,
+              username: user.username
+            }
           });
         } else {
           res.status(200).send({
@@ -69,13 +73,6 @@ const users = {
         message: 'Authentication failed.',
         error: `${error}`
       });
-    });
-  },
-
-  validateUser(req, res) {
-    res.status(200).send({
-      success: false,
-      message: 'Validate will work here.'
     });
   },
 };

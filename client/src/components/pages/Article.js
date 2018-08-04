@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import randomize from 'randomatic';
 import { fetchArticles } from '../../actions/articleActions';
+import ArticleCard from './ArticleCard';
 
 class Article extends Component {
   componentDidMount() {
@@ -22,9 +23,7 @@ class Article extends Component {
       const articleKey = randomize('0', 6);
       return (
         <div key={articleKey}>
-          <h6>{article.title}</h6>
-          <p>{article.content}</p>
-          <hr/>
+          <ArticleCard article={article} />
         </div>
       );
     });
