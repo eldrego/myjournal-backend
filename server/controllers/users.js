@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
 // import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import generateToken from '../helpers/generateToken';
@@ -54,7 +55,7 @@ const users = {
             }
           });
         } else {
-          res.status(200).send({
+          res.status(401).send({
             success: false,
             message: 'Authentication failed. Wrong password.'
           });

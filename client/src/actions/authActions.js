@@ -1,7 +1,6 @@
 import axios from 'axios';
 import decode from 'jwt-decode';
 import { authConstants } from '../constants';
-// import history from '../utils/history';
 import setAuthHeader from '../utils/setAuthHeader';
 
 
@@ -63,7 +62,7 @@ export const loginUser = (userDetails, redirect) => (dispatch) => {
         const token = decode(response.data.token);
         setAuthHeader(token);
       }
-      redirect.push('/');
+      redirect.push('/app');
     })
     .catch((error) => {
       dispatch(loginFailure(error));
@@ -102,7 +101,7 @@ export const logoutUser = redirect => (dispatch) => {
       success: true
     };
     dispatch(logoutSuccess(logoutStatus));
-    redirect.push('/');
+    redirect.push('/auth/login');
   } else {
     dispatch(logoutFailure());
   }

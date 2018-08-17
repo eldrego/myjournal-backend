@@ -15,7 +15,13 @@ const port = process.env.PORT || 8080;
 const app = express();
 app.server = http.createServer(app);
 
-app.use(cors());
+app.use(cors({
+  allowedHeaders: ['sessionId', 'Content-Type'],
+  exposedHeaders: ['sessionId'],
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false
+}));
 
 app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +30,10 @@ app.use(express.static(`${__dirname}/../client/dist`));
 app.use(express.static(`${__dirname}/./public`));
 
 app.use('/api/v1/', routes);
+
+app.get('/heremaps', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/./public/index.html`));
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../client/dist/index.html`));

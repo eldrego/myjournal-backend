@@ -9,15 +9,17 @@ import Header from '../common/Header';
 import Footer from '../common/Footer';
 import Home from '../pages/Home';
 import About from '../pages/About';
+import UserNotes from '../pages/UserNotes';
 
 const PageLayout = (props) => {
   return (
     <div>
       <Header history={props.history}/>
-      <main className="container">
+      <main className="container contentContainer">
         <Switch>
           <Route path={`${props.match.path}/`} exact component={Home} />
-          <Route path={`${props.match.path}/about`} component={About} />
+          <Route path={`${props.match.path}/about`} exact component={About} />
+          <Route path={`${props.match.path}/notes`} exact component={UserNotes} />
         </Switch>
       </main>
       <Footer />

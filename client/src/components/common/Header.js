@@ -14,7 +14,6 @@ class Header extends Component {
   }
 
   logOut() {
-    console.log(this.props);
     this.props.logoutUser(this.props.history);
   }
 
@@ -34,7 +33,7 @@ class Header extends Component {
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
           <a className="dropdown-item" href="#">Profile</a>
-          <a className="dropdown-item" href="#">Settings</a>
+          <Link className="dropdown-item" to="/app/notes">My Notes</Link>
           <div className="dropdown-divider"/>
           <span className="dropdown-item" onClick={this.logOut}>Logout</span>
         </div>
@@ -56,7 +55,7 @@ class Header extends Component {
       <header >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/app">
               <div className="header-logo-box"><img src={'../logo.png'}/></div>
             </Link>
             <button className="navbar-toggler" type="button"
@@ -68,7 +67,7 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav float-right">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/about">About</Link>
+                  <Link className="nav-link" to="/app/about">About</Link>
                 </li>
                 { MenuDisplay }
               </ul>

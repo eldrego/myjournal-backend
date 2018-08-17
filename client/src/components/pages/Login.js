@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authActions';
+import { loginUser, logoutUser } from '../../actions/authActions';
 import checkAuth from '../../utils/checkAuth';
+import Alert from '../common/Alert';
 
 class Login extends Component {
   constructor(props) {
@@ -42,13 +43,22 @@ class Login extends Component {
 
   verifyLogin() {
     if ((checkAuth()) && (this.props.loggedIn)) {
-      this.props.history.push('/');
+      this.props.history.push('app/');
     }
+
+    this.props.logoutUser(this.props.history);
   }
 
   render() {
-    const { loggedIn, message } = this.props;
+    const { loggedIn, message, success } = this.props;
     const loginStatus = loggedIn ? message : message;
+    const alertType = success ? 'success' : 'danger';
+
+    let AlertDisplay;
+
+    if (loginStatus) {
+      AlertDisplay = <Alert message={loginStatus} alert={alertType}/>;
+    }
 
     return (
       <div>
@@ -89,13 +99,13 @@ class Login extends Component {
               className="col-md-12 btn btn-journal"
               type="submit">Submit</button>
 
-            { loginStatus }
+            { AlertDisplay }
 
           </form>
           <div className="login-footer">
             <div className="row justify-content-md-center">
               <div className="col-md-5">
-                <Link className="link float-right" to="/">Home</Link>
+                <Link className="link float-right" to="/app">Home</Link>
               </div>
               <div className="col-md-5">
                 <Link className="link float-left" to="/auth/register">Register</Link>
@@ -110,6 +120,7 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
   history: PropTypes.object,
   message: PropTypes.string,
   success: PropTypes.bool,
@@ -122,4 +133,4 @@ const mapStateToProps = state => ({
   loggedIn: state.auth.loggedIn
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser, logoutUser })(Login);

@@ -3,7 +3,6 @@ import articles from '../controllers/articles';
 import users from '../controllers/users';
 import verifyToken from '../middlewares/verifyToken';
 
-
 const router = express.Router();
 
 router.get('/api/v1/', (req, res) => {

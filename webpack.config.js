@@ -15,12 +15,6 @@ module.exports = {
   output: {
     path: DIST_DIR,
     filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].bundle.js',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
   },
   resolve: {
     extensions: ['.js', '.jsx']

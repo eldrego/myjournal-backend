@@ -17,8 +17,7 @@ const AuthLayout = (props) => {
             <div className="row justify-content-md-center">
               <div className="col-md-4">
                 <div className="auth-box form-margin">
-                  <div className="logo-box">
-                  </div>
+                  <div className="logo-box"/>
                   <Switch>
                     <Route path={`${props.match.path}/login`} exact component={Login} />
                     <Route path={`${props.match.path}/register`} exact component={Register} />

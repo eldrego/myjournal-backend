@@ -22,7 +22,7 @@ const App = props => (
   <BrowserRouter history={browserHistory}>
     <Switch>
       <Route path="/auth" component={AuthLayout} />
-      <AuthRoute path="/" component={PageLayout} />
+      <AuthRoute path="/app" component={PageLayout} />
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>

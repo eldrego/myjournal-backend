@@ -24,7 +24,10 @@ const ArticlesSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-  }
+  },
+  image: {
+    type: String,
+  },
 });
 mongoose.model('Articles', ArticlesSchema);
 
