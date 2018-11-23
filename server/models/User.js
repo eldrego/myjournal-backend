@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 
-const UserSchema = new mongoose.Schema({
+export const schema = {
   username: {
     type: String,
     required: true,
@@ -11,7 +11,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  fullname: String,
+  fullname: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -29,7 +32,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'http://lorempixel.com/100/100/people/'
   }
-});
+};
+
+const UserSchema = new mongoose.Schema(schema);
 
 // eslint-disable-next-line
 UserSchema.pre('save', function (next) {
@@ -53,14 +58,6 @@ UserSchema.pre('save', function (next) {
   }
 });
 
-// UserSchema.methods.comparePassword = function (passw, cb) {
-//     bcrypt.compare(passw, this.password, function (err, isMatch) {
-//         if (err) {
-//             return cb(err);
-//         }
-//         cb(null, isMatch);
-//     });
-// };
 UserSchema.methods.comparePassword = function (userPassword, callback) {
   // eslint-disable-next-line
   bcrypt.compare(userPassword, this.password, function(err, isMatch) {
@@ -69,6 +66,4 @@ UserSchema.methods.comparePassword = function (userPassword, callback) {
   });
 };
 
-mongoose.model('User', UserSchema);
-
-module.exports = mongoose.model('User');
+export const User = mongoose.model('User', UserSchema);

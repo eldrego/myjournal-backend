@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+// import { toastr } from 'react-redux-toastr';
 import { loginUser, logoutUser } from '../../actions/authActions';
 import checkAuth from '../../utils/checkAuth';
-import Alert from '../common/Alert';
+// import Alert from '../common/Alert';
+
 
 class Login extends Component {
   constructor(props) {
@@ -50,15 +52,9 @@ class Login extends Component {
   }
 
   render() {
-    const { loggedIn, message, success } = this.props;
-    const loginStatus = loggedIn ? message : message;
-    const alertType = success ? 'success' : 'danger';
-
-    let AlertDisplay;
-
-    if (loginStatus) {
-      AlertDisplay = <Alert message={loginStatus} alert={alertType}/>;
-    }
+    // const { loggedIn, message, success } = this.props;
+    // const loginStatus = loggedIn ? message : message;
+    // const alertType = success ? 'success' : 'danger';
 
     return (
       <div>
@@ -98,8 +94,6 @@ class Login extends Component {
             <button
               className="col-md-12 btn btn-journal"
               type="submit">Submit</button>
-
-            { AlertDisplay }
 
           </form>
           <div className="login-footer">

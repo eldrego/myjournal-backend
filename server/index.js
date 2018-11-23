@@ -31,16 +31,13 @@ app.use(express.static(`${__dirname}/./public`));
 
 app.use('/api/v1/', routes);
 
-app.get('/heremaps', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/./public/index.html`));
-});
-
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../client/dist/index.html`));
 });
 
-app.server.listen(port);
-
-winston.info(`Started on port ${port}`, 'info');
+if (!module.parent) {
+  app.server.listen(port);
+  winston.info(`Started on port ${port}`, 'info');
+}
 
 module.exports = app;

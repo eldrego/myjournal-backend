@@ -4,9 +4,9 @@ const chaiHttp = require('chai-http');
 // const sinon = require('sinon');
 const chai = require('chai');
 
-const server = require('../index.js');
-const Article = require('../models/Article');
-const User = require('../models/User');
+const server = require('../../index.js');
+const { Note } = require('../../models/Note');
+const { User } = require('../../models/User');
 
 const should = chai.should();
 chai.use(chaiHttp);
@@ -14,7 +14,8 @@ chai.use(chaiHttp);
 const registerDetails = {
   username: 'moe',
   password: 'password',
-  email: 'moe@email.com'
+  email: 'moe@email.com',
+  fullname: 'Moe Doe'
 };
 
 const loginDetails = {
@@ -23,20 +24,20 @@ const loginDetails = {
 };
 
 describe('Feature', () => {
-  let token = null;
+  let userToken = null;
   before((done) => {
     User.create(registerDetails, () => {});
     chai.request(server)
       .post('/api/v1/login')
       .send(loginDetails)
       .end((error, res) => {
-        token = res.body.token;
+        userToken = res.body.token;
         done();
       });
   });
 
   beforeEach((done) => {
-    Article.remove({}, () => {
+    Note.remove({}, () => {
       done();
     });
   });
@@ -47,36 +48,36 @@ describe('Feature', () => {
     });
   });
 
-  describe('Get All Articles', () => {
-    it('should GET all articles', (done) => {
+  describe('Get All Notes', () => {
+    it('should GET all notes', (done) => {
       chai.request(server)
-        .get('/api/v1/articles')
-        .set('Authorization', token)
+        .get('/api/v1/notes')
+        .set('Authorization', userToken)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.success.should.equal(true);
           res.body.message.should.equal('success');
-          res.body.should.have.property('articles');
-          res.body.articles.should.be.a('array');
-          res.body.articles.length.should.be.eql(0);
+          res.body.should.have.property('notes');
+          res.body.notes.should.be.a('array');
+          res.body.notes.length.should.be.eql(0);
           done();
         });
     });
   });
 
-  describe('Create Article', () => {
-    it('should not POST an article without content', (done) => {
-      const article = {
+  describe('Create Note', () => {
+    it('should not POST a note without content', (done) => {
+      const note = {
         title: 'The Lord of the Rings',
       };
 
-      const errorMessage = 'Articles validation failed: content: Path `content` is required.';
+      const errorMessage = 'Note validation failed: content: Path `content` is required.';
 
       chai.request(server)
-        .post('/api/v1/create')
-        .set('Authorization', token)
-        .send(article)
+        .post('/api/v1/notes')
+        .set('Authorization', userToken)
+        .send(note)
         .end((error, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -87,23 +88,23 @@ describe('Feature', () => {
         });
     });
 
-    it('should successfully POST an article with title and content', (done) => {
-      const article = {
+    it('should successfully POST an note with title and content', (done) => {
+      const note = {
         title: 'The Lord of the Rings',
         content: 'The Lord of the Rings is a film series directed by Peter Jackson.',
       };
 
       chai.request(server)
-        .post('/api/v1/create')
-        .set('Authorization', token)
-        .send(article)
+        .post('/api/v1/notes')
+        .set('Authorization', userToken)
+        .send(note)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.success.should.equal(true);
           res.body.message.should.equal('success');
-          res.body.should.have.property('article');
-          res.body.article.title.should.equal('The Lord of the Rings');
+          res.body.should.have.property('note');
+          res.body.note.title.should.equal('The Lord of the Rings');
           done();
         });
     });

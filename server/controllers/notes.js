@@ -1,10 +1,14 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
-import Article from '../models/Article';
+import { Note } from '../models/Note';
+
+exports.message = (req, res) => {
+  res.send({ message: 'Welcome to My Journal Application API' });
+};
 
 exports.getAll = (req, res) => {
-  Article.find().then((items) => {
+  Note.find().then((items) => {
     res.send({
-      success: true, message: 'success', articles: items
+      success: true, message: 'success', notes: items
     });
   }).catch((error) => {
     res.status(404).send({
@@ -13,18 +17,30 @@ exports.getAll = (req, res) => {
   });
 };
 
-exports.message = (req, res) => {
-  res.send({ message: 'Welcome to My Journal Application API' });
+exports.getUserNotes = (req, res) => {
+  const { user } = req.decoded;
+  Note.find({ author: user.id }).then((items) => {
+    res.send({
+      success: true, message: 'success', notes: items
+    });
+  }).catch((error) => {
+    res.status(404).send({
+      success: false, message: 'failure', error
+    });
+  });
 };
 
 exports.create = (req, res) => {
-  const newArticle = new Article(req.body);
-  newArticle.save()
-    .then((article) => {
+  const { user } = req.decoded;
+  req.body.author = user.id;
+
+  const newNote = new Note(req.body);
+  newNote.save()
+    .then((note) => {
       res.send({
         success: true,
         message: 'success',
-        article,
+        note,
       });
     })
     .catch((error) => {
@@ -37,7 +53,7 @@ exports.create = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  Article.findById(req.params.id)
+  Note.findById(req.params.id)
     .then(item => item.remove()
       .then(() => res.send({
         success: true,
@@ -48,7 +64,7 @@ exports.delete = (req, res) => {
       res.status(404).send({
         success: false,
         message: 'failure',
-        error: `${error} - Article not found`,
+        error: `${error} - Note not found`,
       });
     });
 };

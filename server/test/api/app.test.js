@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { expect } = require('chai');
-const server = require('../index.js');
+const server = require('../../index.js');
 
 describe('Server', () => {
   it('should return 200 if the server is running', (done) => {

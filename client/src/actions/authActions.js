@@ -1,5 +1,6 @@
 import axios from 'axios';
 import decode from 'jwt-decode';
+import { toastr } from 'react-redux-toastr';
 import { authConstants } from '../constants';
 import setAuthHeader from '../utils/setAuthHeader';
 
@@ -55,21 +56,21 @@ export const loginUser = (userDetails, redirect) => (dispatch) => {
   dispatch(loginRequest());
   axios.post('/api/v1/login', userDetails)
     .then((response) => {
-      // console.log(response.data);
       dispatch(loginSuccess(response.data));
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         const token = decode(response.data.token);
         setAuthHeader(token);
       }
-      redirect.push('/app');
+
+      if (response.data.success) {
+        toastr.success(response.data.message);
+        redirect.push('/app');
+      }
     })
     .catch((error) => {
-      dispatch(loginFailure(error));
-      // dispatch(alertActions.error(error.toString()));
-    })
-    .then(() => {
-    // always executed
+      toastr.error(`Error : ${error.response.data.message}`);
+      dispatch(loginFailure(error.response.data));
     });
 };
 

@@ -1,15 +1,12 @@
 import mongoose from 'mongoose';
 
-const ArticlesSchema = new mongoose.Schema({
+export const schema = {
   slug: {
     type: String,
   },
   title: {
     type: String,
-    required: true,
-  },
-  tagList: {
-    type: Array,
+    required: [true, 'All notes should have a title'],
   },
   content: {
     type: String,
@@ -23,12 +20,15 @@ const ArticlesSchema = new mongoose.Schema({
     type: Date
   },
   author: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
+    ref: 'user'
   },
   image: {
     type: String,
+    unique: true,
   },
-});
-mongoose.model('Articles', ArticlesSchema);
+};
 
-module.exports = mongoose.model('Articles');
+const NoteSchema = new mongoose.Schema(schema);
+
+export const Note = mongoose.model('Note', NoteSchema);

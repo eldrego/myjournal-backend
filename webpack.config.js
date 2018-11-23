@@ -29,11 +29,35 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        use: ['style-loader',
-          MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        // test: /\.scss$/,
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ]
       }
     ]
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        // js: {
+        //   test: /\.js$/,
+        //   name: 'commons',
+        //   chunks: 'all',
+        //   minChunks: 7,
+        // },
+        css: {
+          test: /\.(css|sass|scss)$/,
+          name: 'commons',
+          chunks: 'all',
+          minChunks: 2,
+          enforce: true
+        }
+      }
+    }
   },
   plugins: [
     new CleanWebpackPlugin('client/dist', {}),

@@ -12,7 +12,8 @@ export const authConstants = {
   LOGOUT_FAILURE: 'LOGOUT_FAILURE',
 };
 
-export const articleConstants = {
-  ADD_ARTICLE: 'ADD_ARTICLE',
-  FETCH_ARTICLES: 'FETCH_ARTICLES'
+export const noteConstants = {
+  ADD_NOTE: 'ADD_NOTE',
+  FETCH_NOTES: 'FETCH_NOTES',
+  FETCH_USER_NOTES: 'FETCH_USER_NOTES'
 };

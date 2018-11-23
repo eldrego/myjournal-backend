@@ -4,14 +4,15 @@
 
 $basic-font-stack: 'PT Sans', sans-serif;
 $font-stack: 'Encode Sans Expanded', sans-serif;
-$header-font-stack: 'Arvo', serif;
-$form-font-stack: 'Arvo', serif;
+$header-font-stack: 'Arvo', sans-serif;
+$form-font-stack: 'Arvo', sans-serif;
 $font-weight: 100;
 $font-size: 0.8rem;
 $bacis-font-color: #666666;
-$header-font-color: #3399cc;
-$blue: #3399cc;
-$link-blue: #FF6201;
+$header-font-color: #01A480;
+$green: #01A480;
+$other-green: #27AB8D;
+$dark-green: #008063;
 $orange: #ff9f01;
 
 %border-radius {
@@ -26,14 +27,10 @@ $orange: #ff9f01;
 
 %input-field{
   box-sizing: border-box;
-  // height: 40px;
-  // padding: .4rem 1rem;
   border: 0px;
-  // font-weight: 100;
   border-bottom: 1px solid #cacaca;
   background-color: #f1f1f1;
   box-shadow: none;
-  // border-radius: 0;
   transition: none;
   -webkit-appearance: none;
 }
@@ -92,6 +89,16 @@ textarea {
 	margin: 0;
 }
 
+button, .btn {
+  background-color: $green;
+  border: 1px solid $other-green;
+}
+
+button:hover, .btn:hover {
+  background-color: $dark-green;
+  border: 1px solid $other-green;
+}
+
 header {
   background-color: $orange;
 }
@@ -103,7 +110,9 @@ header {
 }
 
 .logo-box img{
-  width:100%
+  // width:100%
+  display: block;
+  margin: auto;
 }
 
 .login-box {
@@ -116,7 +125,7 @@ header {
   }
 
   .link {
-    color: $link-blue;
+    color: $orange;
     font-size: 0.7rem;
     font-weight: bold;
   }
@@ -141,7 +150,7 @@ header {
 }
 
 .auth-box {
-  height: 100%;
+  // height: 100%;
 }
 
 .auth-header {
@@ -160,7 +169,7 @@ form {
   .form-control{
     @extend %input-field;
     height: 62px;
-    padding:0 12px 0 19px;
+    padding:0 12px 0 20px;
   }
   .input-group-addon {
     @extend %input-group-addon;
@@ -168,8 +177,106 @@ form {
   }
 }
 
+form.userNote {
+  .form-control{
+    @extend %input-field;
+    // background-color: transparent;
+    height: 40px;
+    padding:0 12px 0 20px;
+  }
+}
+
+.uploadContainer{
+  padding: 0px 0 0 0;
+  height: 60px;
+  width: 60px;
+  margin: 10px 0 10px 0;
+  position: relative;
+}
+
+.uploadButton {
+  background-color: #dddddd;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: .25rem;
+}
+
+.uploadedContent {
+  // position:relative;
+}
+
+.uploadedImage {
+  border-radius: .25rem;
+
+  img.object-fit_cover {
+    width: 40px;
+    height: 40px;
+    object-fit:cover;
+    border-radius: .25rem;
+  }
+}
+
+.card {
+  background-color: #f1f3f5;
+  border: 0px solid #ffffff;
+  margin-bottom: 20px;
+  min-height:230px;
+
+  img {
+    width: 100%;
+    height: 140px;
+    object-fit:cover;
+  }
+}
+
+.uplaodDeleteIcon {
+  position: absolute;
+  cursor: pointer;
+  color: #ff0000;
+  bottom: 15px;
+  font-size: 16px;
+  right: 15px;
+  background-color: white;
+  border-radius: .25rem;
+  padding: 2px;
+}
+
+progress{
+  width: 100%;
+}
+
+.progress-bar {
+  background-color: $orange;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+
+  width: 250px;
+  height: 20px;
+
+  position: relative;
+  display: block;
+}
+
+.progress-bar > span {
+  background-color: $orange;
+  border-radius: 2px;
+
+  display: block;
+  text-indent: -9999px;
+}
+
+.submitNote {
+  margin: 10px 0 10px 0;
+
+  button {
+    background-color: $green;
+    border: 1px solid $other-green;
+  }
+}
+
 .form-margin {
-  margin: 120px 0 0 0;
+  margin: 80px 0 0 0;
 }
 
 #headerButtons {
@@ -198,41 +305,20 @@ form {
 
 .contentArea {
   min-height:100px;
-  padding:20px;
-  border:1px solid #e1e1e2;
+  height: inherit !important;
+  padding:20px !important;
+  // border:1px solid #e1e1e2;
 }
 
-.contentArea:focus {
-  border-color: #e1e1e2;
-  outline: 0;
-  box-shadow: none;
-}
-
-.uploadImage {
-  // width: 0.1px;
-  // height: 0.1px;
-  // opacity: 0;
-  // overflow: hidden;
-  // position: absolute;
-  // z-index: -1;
-}
-
-// .uploadImage + label {
-//   color: #f1e5e6;
-//   background-color: #d3394c;
+// .contentArea:focus {
+//   border-color: #e1e1e2;
+//   outline: 0;
+//   box-shadow: none;
 // }
-//
-// .uploadImage + label{
-//   max-width: 80%;
-//   font-size: 1.25rem;
-//   font-weight: 700;
-//   text-overflow: ellipsis;
-//   white-space: nowrap;
-//   cursor: pointer;
-//   display: inline-block;
-//   overflow: hidden;
-//   padding: 0.625rem 1.25rem;
-// }
+
+.userNoteTitle {
+  text-align: center;
+}
 
 footer {
   position: absolute;
@@ -276,6 +362,12 @@ footer .footer-content {
   height: 62px;
 }
 
+.btn-journal:hover {
+  background-color: $orange;
+  border-color: $orange;
+  cursor: pointer;
+}
+
 .form-control {
   font-size: $font-size;
   padding: 10px;
@@ -298,96 +390,4 @@ footer .footer-content {
 
 .navbar-collapse {
   justify-content: flex-end;
-}
-
-
-
-// ***********
-// Bootsrap overides
-// ***********
-
-// .custom-file-input::-webkit-file-upload-button {
-//   // visibility: hidden;
-// }
-// .custom-file-input::before {
-//   content: 'Select some files';
-//   display: inline-block;
-//   background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-//   border: 1px solid #999;
-//   border-radius: 3px;
-//   padding: 5px 8px;
-//   outline: none;
-//   white-space: nowrap;
-//   -webkit-user-select: none;
-//   cursor: pointer;
-//   text-shadow: 1px 1px #fff;
-//   font-weight: 700;
-//   font-size: 10pt;
-// }
-// .custom-file-input:hover::before {
-//   border-color: black;
-// }
-// .custom-file-input:active::before {
-//   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-// }
-
-.images {
-  display: flex;
-  flex-wrap:  wrap;
-  margin-top: 20px;
-}
-.images .img,
-.images .pic {
-  flex-basis: 31%;
-  margin-bottom: 10px;
-  border-radius: 4px;
-}
-.images .img {
-  width: 112px;
-  height: 93px;
-  background-size: cover;
-  margin-right: 10px;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.images .img:nth-child(3n) {
-  margin-right: 0;
-}
-.images .img span {
-  display: none;
-  text-transform: capitalize;
-  z-index: 2;
-}
-.images .img::after {
-  content: '';
-  width: 100%;
-  height: 100%;
-  transition: opacity .1s ease-in;
-  border-radius: 4px;
-  opacity: 0;
-  position: absolute;
-}
-.images .img:hover::after {
-  display: block;
-  background-color: #000;
-  opacity: .5;
-}
-.images .img:hover span {
-  display: block;
-  color: #fff;
-}
-.images .pic {
-  background-color: #F5F7FA;
-  align-self: center;
-  text-align: center;
-  padding: 40px 0;
-  text-transform: uppercase;
-  color: #848EA1;
-  font-size: 12px;
-  cursor: pointer;
 }
