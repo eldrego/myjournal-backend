@@ -52,10 +52,6 @@ class Login extends Component {
   }
 
   render() {
-    // const { loggedIn, message, success } = this.props;
-    // const loginStatus = loggedIn ? message : message;
-    // const alertType = success ? 'success' : 'danger';
-
     return (
       <div>
 

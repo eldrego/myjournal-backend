@@ -202,11 +202,3 @@ NoteForm.propTypes = {
 };
 
 export default connect(null, { addNote })(NoteForm);
-
-// <div className="deleteImage">
-//   { this.state.imageUrl && }
-// </div>
-// <div className="uploadedImage">
-//   { this.state.imageUrl && }
-// </div>
-// { uploadedContent }

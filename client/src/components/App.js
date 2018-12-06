@@ -18,11 +18,11 @@ import NotFound from './pages/NotFound';
 
 library.add(faStroopwafel, faLink, faLock, faUser, faPlus, faTrash);
 
-const App = props => (
+const App = () => (
   <BrowserRouter history={browserHistory}>
     <Switch>
       <Route path="/auth" component={AuthLayout} />
-      <AuthRoute path="/app" component={PageLayout} />
+      <AuthRoute path="/" component={PageLayout} />
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>

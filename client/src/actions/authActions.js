@@ -1,6 +1,6 @@
 import axios from 'axios';
 import decode from 'jwt-decode';
-import { toastr } from 'react-redux-toastr';
+// import { toastr } from 'react-redux-toastr';
 import { authConstants } from '../constants';
 import setAuthHeader from '../utils/setAuthHeader';
 
@@ -64,12 +64,12 @@ export const loginUser = (userDetails, redirect) => (dispatch) => {
       }
 
       if (response.data.success) {
-        toastr.success(response.data.message);
+        // toastr.success(response.data.message);
         redirect.push('/app');
       }
     })
     .catch((error) => {
-      toastr.error(`Error : ${error.response.data.message}`);
+      // toastr.error(`Error : ${error.response.data.message}`);
       dispatch(loginFailure(error.response.data));
     });
 };

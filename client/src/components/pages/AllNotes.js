@@ -10,19 +10,11 @@ class Notes extends Component {
     this.props.getAllNotes();
   }
 
-  // componentDidUpdate(nextProps) {
-  //   if (nextProps.newNote) {
-  //     if (this.props.notes !== nextProps.newNote) {
-  //       this.props.notes.unshift(nextProps.newNote);
-  //     }
-  //   }
-  // }
-
   render() {
     const noteItems = this.props.notes.map((note) => {
       const noteKey = randomize('0', 6);
       return (
-        <div key={noteKey} className="col-md-3">
+        <div key={noteKey} className="col-md-12">
           <NoteCard note={note} />
         </div>
       );
@@ -30,7 +22,6 @@ class Notes extends Component {
 
     return (
       <div>
-        Note Listing
         <div className="row">
           { noteItems }
         </div>
@@ -45,7 +36,7 @@ Notes.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  notes: state.notes.items,
+  notes: state.journal.notes,
 });
 
 export default connect(mapStateToProps, { getAllNotes })(Notes);

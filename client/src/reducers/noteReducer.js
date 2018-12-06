@@ -1,27 +1,32 @@
 import { noteConstants } from '../constants';
 
 const initialState = {
-  items: [],
-  userItems: [],
-  item: {}
+  notes: [],
+  userNotes: [],
+  oneNote: {}
 };
 
 const noteReducer = (state = initialState, action) => {
   switch (action.type) {
-  case noteConstants.ADD_NOTE:
-    return {
-      ...state,
-      userItems: [...state.userItems, action.payload]
-    };
   case noteConstants.FETCH_NOTES:
     return {
       ...state,
-      items: action.payload
+      notes: action.payload
+    };
+  case noteConstants.FETCH_ONE_NOTE:
+    return {
+      ...state,
+      oneNote: action.payload
     };
   case noteConstants.FETCH_USER_NOTES:
     return {
       ...state,
-      userItems: action.payload
+      userNotes: action.payload
+    };
+  case noteConstants.ADD_NOTE:
+    return {
+      ...state,
+      userItems: [...state.userItems, action.payload]
     };
   default:
     return state;

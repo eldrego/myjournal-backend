@@ -15,5 +15,6 @@ export const authConstants = {
 export const noteConstants = {
   ADD_NOTE: 'ADD_NOTE',
   FETCH_NOTES: 'FETCH_NOTES',
-  FETCH_USER_NOTES: 'FETCH_USER_NOTES'
+  FETCH_USER_NOTES: 'FETCH_USER_NOTES',
+  FETCH_ONE_NOTE: 'FETCH_ONE_NOTE'
 };

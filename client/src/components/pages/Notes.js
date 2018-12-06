@@ -13,7 +13,7 @@ class Notes extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    if (nextProps.newNote) {
+    if (Object.values(nextProps.newNote).length > 0) {
       if (this.props.userNotes !== nextProps.newNote) {
         this.props.userNotes.unshift(nextProps.newNote);
       }
@@ -21,12 +21,10 @@ class Notes extends Component {
   }
 
   render() {
-    console.log(this.props, 'Current Props');
-
     const noteItems = this.props.userNotes.map((note) => {
       const noteKey = randomize('0', 6);
       return (
-        <div key={noteKey} className="col-md-3">
+        <div key={noteKey} className="col-md-12">
           <NoteCard note={note} />
         </div>
       );
@@ -54,8 +52,8 @@ Notes.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  userNotes: state.notes.userItems,
-  newNote: state.notes.item
+  userNotes: state.journal.userNotes,
+  newNote: state.journal.item
 });
 
 export default connect(mapStateToProps, { getUserNotes })(Notes);

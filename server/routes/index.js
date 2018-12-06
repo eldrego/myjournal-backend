@@ -17,21 +17,12 @@ router.post('/login', users.login);
 
 // Notes
 router.get('/all-notes', verifyToken, notes.getAll);
-router.get('/notes', verifyToken, notes.getUserNotes);
+router.get('/notes', notes.getAll);
 router.post('/notes', verifyToken, notes.create);
+router.get('/notes/:id', notes.getOne);
 
 router.delete('/notes/:id', verifyToken, notes.delete);
-
-// router.route('/notes')
-//   .get(verifyToken, notes.getUserNotes)
-//   .post(verifyToken, notes.create);
-//
-// router.route('/notes/:id')
-//   .get(verifyToken, notes.getOne)
-//   .put(verifyToken, notes.updateOne)
-//   .delete(verifyToken, notes.delete);
-
-router.get('/message', verifyToken, notes.message);
+router.get('/message', notes.message);
 
 router.get('/*', (req, res) => {
   res.send({ message: 'The endpoint you have initiated does not exist' });
