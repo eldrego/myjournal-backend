@@ -8,16 +8,21 @@ import {
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import Home from '../pages/Home';
-import About from '../pages/About';
+import AddNote from '../pages/AddNote';
+import UserNotes from '../pages/UserNotes';
+import OneNote from '../pages/OneNote';
+
 
 const PageLayout = (props) => {
   return (
     <div>
-      <Header />
-      <main className="container">
+      <Header history={props.history}/>
+      <main className="container contentContainer">
         <Switch>
           <Route path={`${props.match.path}/`} exact component={Home} />
-          <Route path={`${props.match.path}/about`} component={About} />
+          <Route path={`${props.match.path}/create-note`} exact component={AddNote} />
+          <Route path={`${props.match.path}/notes`} exact component={UserNotes} />
+          <Route path={`${props.match.path}/notes/:noteID`} exact component={OneNote} />
         </Switch>
       </main>
       <Footer />
@@ -27,6 +32,7 @@ const PageLayout = (props) => {
 
 PageLayout.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default PageLayout;

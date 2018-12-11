@@ -1,27 +1,41 @@
 import express from 'express';
-import articles from '../controllers/articles';
+import notes from '../controllers/notes';
 import users from '../controllers/users';
+import category from '../controllers/category';
 import verifyToken from '../middlewares/verifyToken';
+import validate from '../helpers/validate';
 
-
+// const validate = new Validate();
 const router = express.Router();
 
-router.get('/api/v1/', (req, res) => {
+// Messages
+router.get('/', (req, res) => {
   res.send({ message: 'Welcome to My Journal Application API' });
 });
+router.get('/message', notes.message);
 
 // Authentication
-router.post('/register', users.register);
-router.post('/login', users.login);
-router.post('/validateUser', users.validateUser);
+router.post('/register', validate.register, users.register);
+router.post('/login', validate.login, users.login);
+router.get('/profile', verifyToken, users.profile);
 
+// Notes
+router.get('/all-notes', verifyToken, notes.getAll);
+router.get('/notes', verifyToken, notes.getUserNotes);
+router.post('/notes',
+  verifyToken,
+  validate.createNote,
+  notes.create);
+router.get('/notes/:id', verifyToken, notes.getOne);
+router.delete('/notes/:id', verifyToken, notes.delete);
 
-// Articles
-router.get('/articles', verifyToken, articles.getAll);
-router.get('/message', verifyToken, articles.message);
+// Categories
+router.get('/categories', verifyToken, category.getAll);
+router.post('/categories', verifyToken, category.create);
 
-// Articles with Authorization
-router.post('/create', verifyToken, articles.create);
-router.delete('/delete/:id', verifyToken, articles.delete);
+// Default
+router.get('/*', (req, res) => {
+  res.send({ message: 'The endpoint you have initiated does not exist' });
+});
 
 module.exports = router;

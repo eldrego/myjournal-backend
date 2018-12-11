@@ -70,3 +70,9 @@ dist
 npm-scripts.txt
 initUsers.js
 testHelper.js
+
+# Compiled test resources
+tests/
+
+# "test:server": "npm run prod:client && cross-env NODE_ENV=test && npm run cover",
+# "test:server": "npm run prod:client && cross-env NODE_ENV=test && _mocha --recursive server/tests/ --require babel-polyfill",

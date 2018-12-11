@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import AllNotes from './AllNotes';
+import NoteForm from './NoteForm';
 
-class Home extends Component {
+class AddNote extends Component {
   render() {
     return (
       <div className="row">
         <div className="col-md-12">
-          <h4 className="userNoteTitle">All Notes</h4>
-          <div className="row justify-content-md-center">
+          <h4 className="userNoteTitle">Create New Note</h4>
+          <div className="row">
             <div className="col-md-12">
-              <AllNotes/>
+              <NoteForm />
             </div>
           </div>
         </div>
@@ -18,4 +18,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default AddNote;

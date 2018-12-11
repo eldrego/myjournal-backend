@@ -1,249 +1,424 @@
-// ***********
-// Variables
-// ***********
-
-$basic-font-stack: 'PT Sans', sans-serif;
-$font-stack: 'Encode Sans Expanded', sans-serif;
-$header-font-stack: 'Arvo', serif;
-$form-font-stack: 'Arvo', serif;
-$font-weight: 100;
-$font-size: 0.8rem;
-$bacis-font-color: #666666;
-$header-font-color: #3399cc;
-$blue: #3399cc;
-$link-blue: #FF6201;
-$orange: #ff9f01;
-
-%border-radius {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
-
-%padding-bottom {
-  padding-bottom: 10px;
-}
-
-%input-field{
-  box-sizing: border-box;
-  // height: 40px;
-  // padding: .4rem 1rem;
-  border: 0px;
-  // font-weight: 100;
-  border-bottom: 1px solid #cacaca;
-  background-color: #f1f1f1;
-  box-shadow: none;
-  // border-radius: 0;
-  transition: none;
-  -webkit-appearance: none;
-}
-
-%input-group-addon {
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1;
-  color: #fff;
-  // text-align: center;
-  background-color: #cacaca;
-  border: 0px solid #cacaca;
-  // border-radius: 0px;
-}
-
-%logo-box {
-  margin: 0px;
-}
-
-// ***********
-// Margins and Paddings
-// ***********
-%margin-bottom-16 {
-  margin-bottom: 16px;
-}
-
-// ***********
-// Declarations
-// ***********
-
-body {
-  font-family: $font-stack;
-  color: $bacis-font-color;
-  font-size: $font-size;
-  background-color: #ffffff;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: $header-font-stack;
-  font-weight: 700;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-	color: $bacis-font-color;
-  font-family: $form-font-stack;
-  font-weight: 100;
-	font: inherit ;
-	margin: 0;
-}
-
-header {
-  background-color: $orange;
-}
-
-.login-logo-box {
-  @extend %logo-box;
-  margin: 0px auto;
-  padding: 0 0 40px 0;
-}
-
-.logo-box img{
-  width:100%
-}
-
-.login-box {
-  @extend %border-radius;
-  padding: 38px;
-  // background-color: #E6E6E6;
-
-  .login-footer {
-    padding: 20px 0 0 0
-  }
-
-  .link {
-    color: $link-blue;
-    font-size: 0.7rem;
-    font-weight: bold;
-  }
-
-  .link:hover {
-    text-decoration: none;
-  }
-}
-
-.fullimage {
-  background: no-repeat 100% 60%;
-  // background-image: url(https://images.unsplash.com/photo-1457369804613-52c61a468e7d);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.0)),url(https://images.unsplash.com/photo-1457369804613-52c61a468e7d?dpr=1&auto=compress,format&fit=crop&w=1949&h=&q=80&cs=tinysrgb&crop=);
-  height: 100%;
-  min-height: 100vh;
-  background-size: cover;
-  position: relative;
-}
-
-.fullheight {
-  height: 100%;
-}
-
-.auth-box {
-  height: 100%;
-}
-
-.auth-header {
-  font-weight: $font-weight;
-  @extend %padding-bottom;
-}
-
-form {
-  .input-group{
-    @extend %margin-bottom-16;
-    font-family: $form-font-stack
-  }
-  button{
-    top: 5px;
-  }
-  .form-control{
-    @extend %input-field;
-    height: 62px;
-    padding:0 12px 0 19px;
-  }
-  .input-group-addon {
-    @extend %input-group-addon;
-    padding: .375rem 1.4rem;
-  }
-}
-
-.form-margin {
-  margin: 120px 0 0 0;
-}
-
-#headerButtons {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navButton {
-  float: right;
-}
-
-.header-logo-box {
-  @extend %logo-box;
-  width: 75%;
-  padding: 0 0 0px 0;
-}
-
-.header-logo-box img{
-  width:100%;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-}
-
-footer .footer-content {
-  border-top: 1px solid #f5f5f5;
-}
-
-.copy-text {
-  font-size: 0.7rem
-}
-
-
-// ***********
-// Bootsrap overides
-// ***********
-
-.form-control:focus {
-    color: #495057;
-    border-color: #bbbbbb;
-    outline: 0;
-    box-shadow: none;
-}
-
-.btn {
-  font-family: $form-font-stack
-}
-
-.btn-journal {
-  color: #fff;
-  background-color: $orange;
-  border-color: $orange;
-  font-weight: bold;
-  padding:10px;
-  font-size: $font-size;
-  height: 62px;
-}
-
-.form-control {
-  font-size: $font-size;
-  padding: 10px;
-  font-family: $form-font-stack
-}
-
-.bg-light {
-  background-color: transparent !important;
-}
-
-.navbar {
-  padding: .5rem 0rem;
-}
-
-.navbar-collapse {
-  justify-content: flex-end;
-}
+// // ***********
+// // Variables
+// // ***********
+//
+// $basic-font-stack: 'PT Sans', sans-serif;
+// $font-stack: 'Encode Sans Expanded', sans-serif;
+// $header-font-stack: 'Arvo', sans-serif;
+// $form-font-stack: 'Arvo', sans-serif;
+// $font-weight: 100;
+// $font-size: 0.8rem;
+// $bacis-font-color: #666666;
+// $header-font-color: #01A480;
+// $green: #01A480;
+// $other-green: #27AB8D;
+// $dark-green: #008063;
+// $orange: #ff9f01;
+//
+// %border-radius {
+//   -webkit-border-radius: 10px;
+//   -moz-border-radius: 10px;
+//   border-radius: 10px;
+// }
+//
+// %padding-bottom {
+//   padding-bottom: 10px;
+// }
+//
+// %input-field{
+//   box-sizing: border-box;
+//   border: 0px;
+//   border-bottom: 1px solid #cacaca;
+//   background-color: #f1f1f1;
+//   box-shadow: none;
+//   transition: none;
+//   -webkit-appearance: none;
+// }
+//
+// %input-group-addon {
+//   font-size: 1rem;
+//   font-weight: 400;
+//   line-height: 1;
+//   color: #fff;
+//   // text-align: center;
+//   background-color: #cacaca;
+//   border: 0px solid #cacaca;
+//   // border-radius: 0px;
+// }
+//
+// %logo-box {
+//   margin: 0px;
+// }
+//
+// // ***********
+// // Margins and Paddings
+// // ***********
+// %margin-bottom-16 {
+//   margin-bottom: 16px;
+// }
+//
+// // ***********
+// // Declarations
+// // ***********
+//
+// body {
+//   font-family: $font-stack;
+//   color: $bacis-font-color;
+//   font-size: $font-size;
+//   background-color: #ffffff;
+// }
+// #app {
+//   position: relative;
+//   padding-bottom: 100px;
+// }
+//
+// h1, h2, h3, h4, h5, h6 {
+//   font-family: $header-font-stack;
+//   font-weight: 700;
+// }
+//
+// button,
+// input,
+// optgroup,
+// select,
+// textarea {
+// 	color: $bacis-font-color;
+//   font-family: $form-font-stack;
+//   font-weight: 100;
+// 	font: inherit ;
+// 	margin: 0;
+// }
+//
+// button, .btn {
+//   background-color: $green;
+//   border: 1px solid $other-green;
+// }
+//
+// button:hover, .btn:hover {
+//   background-color: $dark-green;
+//   border: 1px solid $other-green;
+// }
+//
+// header {
+//   background-color: $orange;
+// }
+//
+// .login-logo-box {
+//   @extend %logo-box;
+//   margin: 0px auto;
+//   padding: 0 0 40px 0;
+// }
+//
+// .logo-box img{
+//   // width:100%
+//   display: block;
+//   margin: auto;
+// }
+//
+// .login-box {
+//   @extend %border-radius;
+//   padding: 38px;
+//   // background-color: #E6E6E6;
+//
+//   .login-footer {
+//     padding: 20px 0 0 0
+//   }
+//
+//   .link {
+//     color: $orange;
+//     font-size: 0.7rem;
+//     font-weight: bold;
+//   }
+//
+//   .link:hover {
+//     text-decoration: none;
+//   }
+// }
+//
+// .fullimage {
+//   background: no-repeat 100% 60%;
+//   // background-image: url(https://images.unsplash.com/photo-1457369804613-52c61a468e7d);
+//   background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.0)),url(https://images.unsplash.com/photo-1457369804613-52c61a468e7d?dpr=1&auto=compress,format&fit=crop&w=1949&h=&q=80&cs=tinysrgb&crop=);
+//   height: 100%;
+//   min-height: 100vh;
+//   background-size: cover;
+//   position: relative;
+// }
+//
+// .fullheight {
+//   height: 100%;
+// }
+//
+// .auth-box {
+//   // height: 100%;
+// }
+//
+// .auth-header {
+//   font-weight: $font-weight;
+//   @extend %padding-bottom;
+// }
+//
+// form {
+//   .input-group{
+//     @extend %margin-bottom-16;
+//     font-family: $form-font-stack
+//   }
+//   button{
+//     top: 5px;
+//   }
+//   .form-control{
+//     @extend %input-field;
+//     height: 62px;
+//     padding:0 12px 0 20px;
+//   }
+//   .input-group-addon {
+//     @extend %input-group-addon;
+//     padding: .375rem 1.4rem;
+//   }
+// }
+//
+// form.userNote {
+//   .form-control{
+//     @extend %input-field;
+//     // background-color: transparent;
+//     height: 40px;
+//     padding:0 12px 0 20px;
+//   }
+// }
+//
+// .uploadContainer{
+//   padding: 0px 0 0 0;
+//   height: 60px;
+//   width: 60px;
+//   margin: 10px 0 10px 0;
+//   position: relative;
+// }
+//
+// .uploadButton {
+//   background-color: #dddddd;
+//   color: white;
+//   padding: 10px 15px;
+//   cursor: pointer;
+//   border-radius: .25rem;
+// }
+//
+// .uploadedContent {
+//   // position:relative;
+// }
+//
+// .uploadedImage {
+//   border-radius: .25rem;
+//
+//   img.object-fit_cover {
+//     width: 40px;
+//     height: 40px;
+//     object-fit:cover;
+//     border-radius: .25rem;
+//   }
+// }
+//
+// .card {
+//   background-color: #f1f3f5;
+//   border: 0px solid #ffffff;
+//   margin-bottom: 20px;
+//   min-height:230px;
+//
+//   img {
+//     width: 100%;
+//     height: 140px;
+//     object-fit:cover;
+//   }
+// }
+//
+// .uplaodDeleteIcon {
+//   position: absolute;
+//   cursor: pointer;
+//   color: #ff0000;
+//   bottom: 15px;
+//   font-size: 16px;
+//   right: 15px;
+//   background-color: white;
+//   border-radius: .25rem;
+//   padding: 2px;
+// }
+//
+// progress{
+//   width: 100%;
+// }
+//
+// .progress-bar {
+//   background-color: $orange;
+//   border-radius: 2px;
+//   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+//
+//   width: 250px;
+//   height: 20px;
+//
+//   position: relative;
+//   display: block;
+// }
+//
+// .progress-bar > span {
+//   background-color: $orange;
+//   border-radius: 2px;
+//
+//   display: block;
+//   text-indent: -9999px;
+// }
+//
+// .submitNote {
+//   margin: 10px 0 10px 0;
+//
+//   button {
+//     background-color: $green;
+//     border: 1px solid $other-green;
+//   }
+// }
+//
+// .form-margin {
+//   margin: 80px 0 0 0;
+// }
+//
+// #headerButtons {
+//   list-style-type: none;
+//   margin: 0;
+//   padding: 0;
+// }
+//
+// .navButton {
+//   float: right;
+// }
+//
+// .header-logo-box {
+//   @extend %logo-box;
+//   width: 75%;
+//   padding: 0 0 0px 0;
+// }
+//
+// .header-logo-box img{
+//   width:100%;
+// }
+//
+// .contentContainer {
+//   padding-top: 40px;
+// }
+//
+// .contentArea {
+//   min-height:100px;
+//   height: inherit !important;
+//   padding:20px !important;
+//   // border:1px solid #e1e1e2;
+// }
+//
+// // .contentArea:focus {
+// //   border-color: #e1e1e2;
+// //   outline: 0;
+// //   box-shadow: none;
+// // }
+//
+// .userNoteTitle {
+//   text-align: center;
+// }
+//
+// footer {
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
+//   height: 60px;
+//   line-height: 60px;
+// }
+//
+// footer .footer-content {
+//   border-top: 1px solid #f5f5f5;
+// }
+//
+// .copy-text {
+//   font-size: 0.7rem
+// }
+//
+// select.selectBox {
+//   margin: 50px;
+//   width: 150px;
+//   padding: 5px 35px 5px 5px;
+//   font-size: 16px;
+//   border: 1px solid #ccc;
+//   height: 34px;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   appearance: none;
+//   background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
+// }
+//
+// /* CAUTION: IE hackery ahead */
+// select.selectBox::-ms-expand {
+//     display: none; /* remove default arrow on ie10 and ie11 */
+// }
+//
+// /* target Internet Explorer 9 to undo the custom arrow */
+// @media screen and (min-width:0\0) {
+//     select.selectBox {
+//         background:none\9;
+//         padding: 5px\9;
+//     }
+// }
+//
+//
+//
+// // ***********
+// // Bootsrap overides
+// // ***********
+//
+// .form-control:focus, .selectBox {
+//     color: #495057;
+//     border-color: #bbbbbb;
+//     outline: 0;
+//     box-shadow: none;
+// }
+//
+// .btn {
+//   font-family: $form-font-stack
+// }
+//
+// .btn-journal {
+//   color: #fff;
+//   background-color: $orange;
+//   border-color: $orange;
+//   font-weight: bold;
+//   padding:10px;
+//   font-size: $font-size;
+//   height: 62px;
+// }
+//
+// .btn-journal:hover {
+//   background-color: $orange;
+//   border-color: $orange;
+//   cursor: pointer;
+// }
+//
+// .form-control {
+//   font-size: $font-size;
+//   padding: 10px;
+//   font-family: $form-font-stack
+// }
+//
+// .bg-light {
+//   background-color: transparent !important;
+// }
+//
+// .navbar {
+//   padding: .5rem 0rem;
+//   font-family: $form-font-stack;
+//   color: #ffffff !important;
+// }
+//
+// .navbar-light .navbar-nav .nav-link {
+//   color: rgba(255,255,255,1);
+// }
+//
+// .navbar-collapse {
+//   justify-content: flex-end;
+// }
+//
+// .dropdown-menu {
+//   font-size: .75rem;
+// }

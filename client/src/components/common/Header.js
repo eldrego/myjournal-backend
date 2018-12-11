@@ -2,25 +2,62 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/authActions';
 
-import UserMenu from './UserMenu';
+// import UserMenu from './UserMenu';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.logOut = this.logOut.bind(this);
+  }
+
+  logOut() {
+    this.props.logoutUser(this.props.history);
+  }
+
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, user } = this.props;
     let MenuDisplay;
 
     if (loggedIn) {
-      MenuDisplay = <UserMenu props={this.props}/>;
+      MenuDisplay = <li className="nav-item dropdown">
+        <a className="nav-link dropdown-toggle"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+          <span className="user-name">{ user }</span>
+        </a>
+        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a className="dropdown-item" href="#">Profile</a>
+          <Link className="dropdown-item" to="/app/notes">My Notes</Link>
+          <div className="dropdown-divider"/>
+          <span className="dropdown-item" onClick={this.logOut}>Logout</span>
+        </div>
+      </li>;
+    } else {
+      return (
+        <span>
+          <li className="nav-item">
+            <Link className="nav-link" to="/auth/login">Login</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/auth/register">Register</Link>
+          </li>
+        </span>
+      );
     }
 
     return (
       <header >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" to="/app">
               <div className="header-logo-box"><img src={'../logo.png'}/></div>
-            </a>
+            </Link>
             <button className="navbar-toggler" type="button"
               data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false"
@@ -30,19 +67,9 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav float-right">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/about">About</Link>
+                  <Link className="nav-link" to="/app/create-note">New Note</Link>
                 </li>
                 { MenuDisplay }
-
-                <li className="nav-item">
-                  <Link className="nav-link" to="/auth/login">Login</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/auth/register">Register</Link>
-                </li>
               </ul>
             </div>
           </nav>
@@ -53,11 +80,15 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  history: PropTypes.object,
   loggedIn: PropTypes.bool,
+  user: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.loggedIn
+  loggedIn: state.auth.loggedIn,
+  user: state.auth.user
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logoutUser })(Header);

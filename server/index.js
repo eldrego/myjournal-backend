@@ -15,7 +15,13 @@ const port = process.env.PORT || 8080;
 const app = express();
 app.server = http.createServer(app);
 
-app.use(cors());
+app.use(cors({
+  allowedHeaders: ['sessionId', 'Content-Type'],
+  exposedHeaders: ['sessionId'],
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false
+}));
 
 app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,8 +35,9 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../client/dist/index.html`));
 });
 
-app.server.listen(port);
-
-winston.info(`Started on port ${port}`, 'info');
+if (!module.parent) {
+  app.server.listen(port);
+  winston.info(`Started on port ${port}`, 'info');
+}
 
 module.exports = app;

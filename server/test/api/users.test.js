@@ -1,11 +1,12 @@
+
 process.env.NODE_ENV = 'test';
 
 const chaiHttp = require('chai-http');
 // const sinon = require('sinon');
 const chai = require('chai');
 
-const server = require('../index.js');
-const User = require('../models/User');
+const server = require('../../index.js');
+const { User } = require('../../models/User');
 
 const should = chai.should();
 chai.use(chaiHttp);
@@ -13,15 +14,16 @@ chai.use(chaiHttp);
 const registerDetails = {
   username: 'moe',
   password: 'password',
-  email: 'moe@email.com'
+  email: 'moe@email.com',
+  fullname: 'Moe Doe'
 };
 
 const loginDetails = {
-  username: 'moe',
-  password: 'password'
+  username: registerDetails.username,
+  password: registerDetails.password
 };
 
-describe('Feature', () => {
+xdescribe('Feature', () => {
   before((done) => {
     User.remove({}, () => {
       done();
@@ -53,14 +55,14 @@ describe('Feature', () => {
           res.body.should.be.a('object');
           res.body.success.should.equal(true);
           res.body.should.have.property('token');
-          res.body.message.should.equal('User Logged in successfully.');
+          res.body.message.should.equal(`${registerDetails.username}, You have successfully logged in.`);
           done();
         });
     });
 
     it('should return a failure message when using wrong password', (done) => {
       const invalidLoginDetails = {
-        username: 'moe',
+        username: loginDetails.username,
         password: 'wrongpassword'
       };
 
@@ -68,7 +70,7 @@ describe('Feature', () => {
         .post('/api/v1/login')
         .send(invalidLoginDetails)
         .end((error, res) => {
-          res.should.have.status(200);
+          res.should.have.status(401);
           res.body.should.be.a('object');
           res.body.success.should.equal(false);
           res.body.message.should.equal('Authentication failed. Wrong password.');
@@ -89,8 +91,8 @@ describe('Feature', () => {
           res.should.have.status(404);
           res.body.should.be.a('object');
           res.body.success.should.equal(false);
-          res.body.should.have.property('error');
-          res.body.message.should.equal('Authentication failed.');
+          // res.body.should.have.property('error');
+          res.body.message.should.equal('Authentication failed. User not found.');
           done();
         });
     });
