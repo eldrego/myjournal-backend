@@ -18,3 +18,7 @@ export const noteConstants = {
   FETCH_USER_NOTES: 'FETCH_USER_NOTES',
   FETCH_ONE_NOTE: 'FETCH_ONE_NOTE'
 };
+
+export const categoryConstants = {
+  FETCH_CATEGORIES: 'FETCH_CATEGORIES',
+};

@@ -6,6 +6,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import noteReducer from './noteReducer';
 import authReducer from './authReducer';
+import categoryReducer from './categoryReducer';
 
 const authPersistConfig = {
   key: 'auth',
@@ -16,6 +17,7 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
   journal: noteReducer,
   auth: persistReducer(authPersistConfig, authReducer),
+  category: categoryReducer,
   // toastr: toastrReducer,
 });
 

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import randomize from 'randomatic';
 import { getUserNotes } from '../../actions/noteActions';
 import NoteCard from './NoteCard';
-import NoteForm from './NoteForm';
-import Modal from '../common/Modal';
 
 class Notes extends Component {
   componentDidMount() {
@@ -32,11 +30,6 @@ class Notes extends Component {
 
     return (
       <div>
-        <Modal
-          content={<NoteForm />}
-          title={'Create Note'}
-        />
-        Note Listing
         <div className="row">
           { noteItems }
         </div>

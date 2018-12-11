@@ -23,7 +23,7 @@ const loginDetails = {
   password: registerDetails.password
 };
 
-describe('Feature', () => {
+xdescribe('Feature', () => {
   before((done) => {
     User.remove({}, () => {
       done();
@@ -55,7 +55,7 @@ describe('Feature', () => {
           res.body.should.be.a('object');
           res.body.success.should.equal(true);
           res.body.should.have.property('token');
-          res.body.message.should.equal('User Logged in successfully.');
+          res.body.message.should.equal(`${registerDetails.username}, You have successfully logged in.`);
           done();
         });
     });

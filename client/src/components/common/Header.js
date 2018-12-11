@@ -67,7 +67,7 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav float-right">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/app/about">About</Link>
+                  <Link className="nav-link" to="/app/create-note">New Note</Link>
                 </li>
                 { MenuDisplay }
               </ul>

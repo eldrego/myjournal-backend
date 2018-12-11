@@ -65,7 +65,7 @@ describe('User Model', () => {
     it('should successfully create a new user', (done) => {
       user.validate((err) => {
         expect(user.username).to.equal('moe');
-        console.log(err);
+        expect(err).to.equal(null);
         done();
       });
     });

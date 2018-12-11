@@ -72,26 +72,27 @@ describe('Feature', () => {
         title: 'The Lord of the Rings',
       };
 
-      const errorMessage = 'Note validation failed: content: Path `content` is required.';
+      const errorMessage = 'An error has occurred';
 
       chai.request(server)
         .post('/api/v1/notes')
         .set('Authorization', userToken)
         .send(note)
         .end((error, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.success.should.equal(false);
-          res.body.should.have.property('error');
-          res.body.error.message.should.equal(errorMessage);
+          res.body.should.have.property('errors');
+          res.body.message.should.equal(errorMessage);
           done();
         });
     });
 
-    it('should successfully POST an note with title and content', (done) => {
+    it('should successfully POST a note with title, content and category', (done) => {
       const note = {
         title: 'The Lord of the Rings',
         content: 'The Lord of the Rings is a film series directed by Peter Jackson.',
+        category: '5c0953ba695bab1e49485a03'
       };
 
       chai.request(server)

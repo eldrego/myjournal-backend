@@ -24,9 +24,14 @@ export const schema = {
     ref: 'user'
   },
   image: {
-    type: String,
-    unique: true,
+    type: String
   },
+  category: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'category',
+    required: [true, 'Please provide the identifier for the category in the database'],
+
+  }
 };
 
 const NoteSchema = new mongoose.Schema(schema);

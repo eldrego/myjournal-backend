@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ContentEditable from 'react-contenteditable';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import FileUploader from 'react-firebase-file-uploader';
-import firebase from '../../utils/firebase';
+import PageEditor from '../common/PageEditor';
+import ImageUploader from '../common/ImageUploader';
 import { addNote } from '../../actions/noteActions';
+import { getCategories } from '../../actions/categoryActions';
 
 class NoteForm extends Component {
   constructor(props) {
@@ -14,25 +13,19 @@ class NoteForm extends Component {
     this.state = {
       title: '',
       content: '',
-      image: null,
       imageUrl: null,
-      isUploading: false,
-      uploadError: null,
-      progress: 0,
+      category: '',
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleUploadStart = this.handleUploadStart.bind(this);
-    this.handleProgress = this.handleProgress.bind(this);
-    this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
-    this.handleUploadError = this.handleUploadError.bind(this);
-    this.handleImageDelete = this.handleImageDelete.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.contentChange = this.contentChange.bind(this);
+    this.imageUploader = this.imageUploader.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
   }
 
   componentDidMount() {
-    firebase.auth().signInAnonymously();
+    this.props.getCategories();
   }
 
   onTitleChange(event) {
@@ -41,10 +34,18 @@ class NoteForm extends Component {
     });
   }
 
-  onChange(event) {
+  selectCategory(event) {
+    console.log(event.target.value);
+  }
+
+  contentChange(content) {
     this.setState({
-      content: event.target.value
+      content: content.blocks[0].text
     });
+  }
+
+  imageUploader(imageUrl) {
+    this.setState({ imageUrl });
   }
 
   onSubmit(event) {
@@ -60,103 +61,26 @@ class NoteForm extends Component {
     this.setState({
       title: '',
       content: '',
-      image: null,
+      imageUrl: null,
     });
   }
 
-  handleUploadStart() {
-    this.setState({ isUploading: true, progress: 0 });
-  }
-
-  handleProgress(progress) {
-    this.setState({ progress });
-  }
-
-  handleUploadError(error) {
-    this.setState({ isUploading: false });
-    this.setState({ uploadError: error });
-  }
-
-  handleUploadSuccess(filename) {
-    this.setState({ image: filename, progress: 100, isUploading: false });
-    firebase.storage()
-      .ref('images')
-      .child(filename)
-      .getDownloadURL()
-      .then((url) => {
-        this.setState({ imageUrl: url });
-      });
-  }
-
-  handleImageDelete() {
-    firebase.storage()
-      .ref('images')
-      .child(this.state.image)
-      .delete()
-      .then(() => {
-        this.setState({
-          image: null,
-          imageUrl: null,
-        });
-      });
-  }
-
-  renderUploaded() {
-    return (
-      <div className="uploadedContent">
-        <FontAwesomeIcon icon="trash"
-          onClick={this.handleImageDelete}
-          className="uplaodDeleteIcon"
-          title="Remove Image"
-        />
-        <div className="uploadedImage" >
-          <img className="object-fit_cover" src={this.state.imageUrl} />
-        </div>
-      </div>
-    );
-  }
-
-  renderUploader() {
-    return (
-      <label className="uploadButton">
-        <FontAwesomeIcon
-          icon="plus"
-          title="Upload Image"
-        />
-        <FileUploader
-          hidden
-          accept="image/*"
-          name="avatar"
-          randomizeFilename
-          storageRef={firebase.storage().ref('images')}
-          onUploadStart={this.handleUploadStart}
-          onUploadError={this.handleUploadError}
-          onUploadSuccess={this.handleUploadSuccess}
-          onProgress={this.handleProgress}
-        />
-      </label>
-    );
-  }
-
   render() {
-    let ProgressBar;
+    const { categories } = this.props;
 
-    if (this.state.isUploading) {
-      ProgressBar = <progress max="100" value={this.state.progress}>
-        <div className="progress-bar">
-          <span>Progress: 80%</span>
-        </div>
-      </progress>;
-    }
-
-    const uploadedContent = !this.state.image ? this.renderUploader() : this.renderUploaded();
+    const optionItems = categories.map((category) => {
+      return (
+        <option key={category._id} className="col-md-12">
+          { category.name }
+        </option>
+      );
+    });
 
     return (
       <div className="userNote">
-
         <div className="row">
-          <div className="col-md-12">
-            <form onSubmit={this.onSubmit}>
+          <div className="col-md-9">
+            <form>
               <input type="text"
                 className="form-control"
                 name="title"
@@ -165,20 +89,29 @@ class NoteForm extends Component {
                 value={this.state.title}
                 onChange={this.onTitleChange}/>
 
-              <ContentEditable
-                className="contentArea form-control"
-                html={this.state.content}
-                disabled={false}
-                onChange={this.onChange}
-              />
-              { ProgressBar }
+              <PageEditor contentHandler={this.contentChange}/>
+
             </form>
           </div>
+          <div className="col-md-3">
+            <select
+              className="selectBox"
+              onChange={this.selectCategory}>
+              {optionItems}
+            </select>
+
+          </div>
+        </div>
+        <div>
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-6">
-                <div className="uploadContainer">
-                  { uploadedContent }
+                <div className="row">
+                  <div className="imageUploader">
+                    <ImageUploader
+                      uploadHandler={this.imageUploader}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="col-md-6">
@@ -198,7 +131,13 @@ class NoteForm extends Component {
 }
 
 NoteForm.propTypes = {
-  addNote: PropTypes.func.isRequired
+  addNote: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
+  categories: PropTypes.array,
 };
 
-export default connect(null, { addNote })(NoteForm);
+const mapStateToProps = state => ({
+  categories: state.category.list,
+});
+
+export default connect(mapStateToProps, { addNote, getCategories })(NoteForm);
