@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import randomize from 'randomatic';
 import { getUserNotes } from '../../actions/noteActions';
-import NoteCard from './NoteCard';
+import Cards from './Cards';
+
 
 class Notes extends Component {
   componentDidMount() {
@@ -11,29 +11,24 @@ class Notes extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    if (Object.values(nextProps.newNote).length > 0) {
-      if (this.props.userNotes !== nextProps.newNote) {
-        this.props.userNotes.unshift(nextProps.newNote);
+    if (nextProps) {
+      if (Object.values(nextProps.newNote).length > 0) {
+        if (this.props.userNotes !== nextProps.newNote) {
+          this.props.userNotes.unshift(nextProps.newNote);
+        }
       }
     }
   }
 
   render() {
-    const noteItems = this.props.userNotes.map((note) => {
-      const noteKey = randomize('0', 6);
-      return (
-        <div key={noteKey} className="col-md-12">
-          <NoteCard note={note} />
-        </div>
-      );
-    });
+    const { userNotes } = this.props;
+
+    const NoteListing = userNotes.length > 0 ? <Cards notes={userNotes}/> : <h4><span>No notes</span></h4>;
 
     return (
-      <div>
-        <div className="row">
-          { noteItems }
-        </div>
-      </div>
+      <Fragment>
+        { NoteListing }
+      </Fragment>
     );
   }
 }

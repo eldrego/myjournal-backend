@@ -43,7 +43,7 @@ exports.getOne = (req, res) => {
 
 exports.getUserNotes = (req, res) => {
   const { user } = req.decoded;
-  Note.find({ author: user.id }).then((items) => {
+  Note.find({ author: user.id }).lean().then((items) => {
     res.send({
       success: true,
       message: 'success',

@@ -1,9 +1,10 @@
 {
-  "presets": ["env", "react"],
-  "plugins": ["transform-object-rest-spread"],
-  "env": {
-        "test": {
-          "plugins": ["istanbul"]
-        }
-      }
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    ["@babel/transform-runtime"],
+    ["@babel/plugin-proposal-object-rest-spread"]
+  ]
 }

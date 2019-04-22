@@ -26,7 +26,7 @@ export const registerUser = (userDetails, redirect) => (dispatch) => {
   axios.post('/api/v1/register', userDetails)
     .then((response) => {
       dispatch(registerSuccess(response.data));
-      redirect.push('/auth/login');
+      redirect.push('/auth');
     })
     .catch((error) => {
       dispatch(registerFailure(error));
@@ -65,12 +65,13 @@ export const loginUser = (userDetails, redirect) => (dispatch) => {
 
       if (response.data.success) {
         // toastr.success(response.data.message);
-        redirect.push('/app');
+        redirect.push('/');
       }
     })
     .catch((error) => {
+      console.log(error);
       // toastr.error(`Error : ${error.response.data.message}`);
-      dispatch(loginFailure(error.response.data));
+      // dispatch(loginFailure(error.data));
     });
 };
 
@@ -102,7 +103,7 @@ export const logoutUser = redirect => (dispatch) => {
       success: true
     };
     dispatch(logoutSuccess(logoutStatus));
-    redirect.push('/auth/login');
+    redirect.push('/auth');
   } else {
     dispatch(logoutFailure());
   }

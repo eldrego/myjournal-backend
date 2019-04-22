@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 
@@ -33,29 +33,22 @@ class Header extends Component {
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
           <a className="dropdown-item" href="#">Profile</a>
-          <Link className="dropdown-item" to="/app/notes">My Notes</Link>
+          <Link className="dropdown-item" to="/notes">My Notes</Link>
           <div className="dropdown-divider"/>
           <span className="dropdown-item" onClick={this.logOut}>Logout</span>
         </div>
       </li>;
     } else {
-      return (
-        <span>
-          <li className="nav-item">
-            <Link className="nav-link" to="/auth/login">Login</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/auth/register">Register</Link>
-          </li>
-        </span>
-      );
+      MenuDisplay = <li className="nav-item">
+        <Link className="nav-link" to="/auth">Login</Link>
+      </li>;
     }
 
     return (
       <header >
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link className="navbar-brand" to="/app">
+          <nav className="navbar navbar-expand-lg navbar-light">
+            <Link className="navbar-brand" to="/">
               <div className="header-logo-box"><img src={'../logo.png'}/></div>
             </Link>
             <button className="navbar-toggler" type="button"
@@ -67,7 +60,7 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav float-right">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/app/create-note">New Note</Link>
+                  <Link className="nav-link" to="/create-note">New Note</Link>
                 </li>
                 { MenuDisplay }
               </ul>
@@ -91,4 +84,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { logoutUser })(Header);
+export default withRouter(connect(mapStateToProps, { logoutUser })(Header));

@@ -1,42 +1,51 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import randomize from 'randomatic';
+import { connect } from 'react-redux';
+import Cards from './Cards';
 import { getAllNotes } from '../../actions/noteActions';
-import NoteCard from './NoteCard';
 
-class Notes extends Component {
+export class AllNote extends Component {
   componentDidMount() {
     this.props.getAllNotes();
   }
 
   render() {
-    const noteItems = this.props.notes.map((note) => {
-      const noteKey = randomize('0', 6);
-      return (
-        <div key={noteKey} className="col-md-12">
-          <NoteCard note={note} />
-        </div>
-      );
-    });
+    const { journal: { notes } } = this.props;
+
+    const NoteListing = notes.length > 0 ? <Cards notes={notes}/> : <h4><span>No notes</span></h4>;
 
     return (
-      <div>
-        <div className="row">
-          { noteItems }
-        </div>
-      </div>
+      <Fragment>
+        { NoteListing }
+      </Fragment>
     );
   }
 }
 
-Notes.propTypes = {
+AllNote.propTypes = {
   getAllNotes: PropTypes.func.isRequired,
-  notes: PropTypes.array,
+  journal: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  notes: state.journal.notes,
+  journal: state.journal,
 });
 
-export default connect(mapStateToProps, { getAllNotes })(Notes);
+export default connect(mapStateToProps, { getAllNotes })(AllNote);
+
+// render() {
+//   const { journal } = this.props;
+//   const noteItems = journal.notes.map((note) => {
+//     return (
+//       <div key={note._id} className="col-md-4">
+//         <NoteCard note={note} />
+//       </div>
+//     );
+//   });
+
+//   return (
+//     <div className="card-deck">
+//       { noteItems }
+//     </div>
+//   );
+// }

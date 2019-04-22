@@ -34,7 +34,7 @@ export const schema = {
   }
 };
 
-const UserSchema = new mongoose.Schema(schema);
+const UserSchema = new mongoose.Schema(schema, { timestamps: true });
 
 // eslint-disable-next-line
 UserSchema.pre('save', function (next) {
@@ -58,6 +58,7 @@ UserSchema.pre('save', function (next) {
   }
 });
 
+// eslint-disable-next-line
 UserSchema.methods.comparePassword = function (userPassword, callback) {
   // eslint-disable-next-line
   bcrypt.compare(userPassword, this.password, function(err, isMatch) {

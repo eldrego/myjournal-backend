@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
-import checkAuth from '../../utils/checkAuth';
+// import checkAuth from '../../utils/checkAuth';
 
 
 class Register extends Component {
@@ -24,6 +24,7 @@ class Register extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state);
     this.verifyLogin();
   }
 
@@ -47,7 +48,7 @@ class Register extends Component {
   }
 
   verifyLogin() {
-    if ((checkAuth()) && (this.props.loggedIn)) {
+    if ((this.props.loggedIn)) {
       this.props.history.push('/');
     }
   }
@@ -58,18 +59,17 @@ class Register extends Component {
 
         <div className="login-box">
           <div className="auth-header">
-            <span className="auth-intro-text">
+            <span className="auth-intro-text text-center">
+              <p>Welcome</p>
               <h4>Register</h4>
             </span>
           </div>
 
           <form
+            autoComplete="off"
             className="form form-login"
             onSubmit={this.onSubmit}>
             <div className="input-group">
-              <span className="input-group-addon">
-                <FontAwesomeIcon icon="user" />
-              </span>
               <input
                 className="form-control"
                 placeholder="Fullname"
@@ -78,9 +78,6 @@ class Register extends Component {
             </div>
 
             <div className="input-group">
-              <span className="input-group-addon">
-                <FontAwesomeIcon icon="lock" />
-              </span>
               <input
                 className="form-control"
                 placeholder="Email"
@@ -89,9 +86,6 @@ class Register extends Component {
             </div>
 
             <div className="input-group">
-              <span className="input-group-addon">
-                <FontAwesomeIcon icon="lock" />
-              </span>
               <input
                 className="form-control"
                 placeholder="Username"
@@ -100,9 +94,6 @@ class Register extends Component {
             </div>
 
             <div className="input-group">
-              <span className="input-group-addon">
-                <FontAwesomeIcon icon="lock" />
-              </span>
               <input
                 className="form-control"
                 placeholder="Password"
@@ -113,16 +104,6 @@ class Register extends Component {
               className="col-md-12 btn btn-journal"
               type="submit">Submit</button>
           </form>
-          <div className="login-footer">
-            <div className="row justify-content-md-center">
-              <div className="col-md-5">
-                <Link className="link float-right" to="/">Home</Link>
-              </div>
-              <div className="col-md-5">
-                <Link className="link float-left" to="/auth/Login">Login</Link>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     );
@@ -133,7 +114,8 @@ Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   history: PropTypes.object,
   message: PropTypes.string,
-  success: PropTypes.bool
+  success: PropTypes.bool,
+  loggedIn: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
