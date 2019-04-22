@@ -1,21 +1,24 @@
 import decode from 'jwt-decode';
 
 const checkAuth = () => {
+  let isLoggedIn = true;
   const token = localStorage.getItem('token');
   if (!token) {
-    return false;
+    isLoggedIn = false;
   }
 
   try {
     const payload = decode(token);
     if (payload.exp < new Date().getTime()) {
-      return false;
+      isLoggedIn = false;
     }
   } catch (error) {
-    return false;
+    isLoggedIn = false;
   }
 
-  return true;
+  console.log(isLoggedIn);
+
+  return isLoggedIn;
 };
 
 export default checkAuth;

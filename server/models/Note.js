@@ -21,14 +21,14 @@ export const schema = {
   },
   author: {
     type: mongoose.Schema.ObjectId,
-    ref: 'user'
+    ref: 'User'
   },
   image: {
     type: String
   },
   category: {
     type: mongoose.Schema.ObjectId,
-    ref: 'category',
+    ref: 'Category',
     required: [true, 'Please provide the identifier for the category in the database'],
 
   }

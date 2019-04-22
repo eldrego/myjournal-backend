@@ -20,7 +20,7 @@ router.post('/login', validate.login, users.login);
 router.get('/profile', verifyToken, users.profile);
 
 // Notes
-router.get('/all-notes', verifyToken, notes.getAll);
+router.get('/all-notes', notes.getAll);
 router.get('/notes', verifyToken, notes.getUserNotes);
 router.post('/notes',
   verifyToken,

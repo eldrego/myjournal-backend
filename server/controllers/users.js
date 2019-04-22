@@ -32,7 +32,7 @@ const users = {
           });
 
           // save the user
-          newUser.save((error) => {
+          newUser.save((error, createdUser) => {
             if (error) {
               res.status(400).json({
                 success: false,
@@ -65,7 +65,8 @@ const users = {
                   res.status(201).json({
                     success: true,
                     message: 'User successful created verifcation email sent',
-                    info
+                    info,
+                    createdUser
                   });
                 }
               });
@@ -110,6 +111,7 @@ const users = {
                 success: true,
                 message: `${user.username}, You have successfully logged in.`,
                 token: `${token}`,
+                username: user.username
               });
             } else {
               res.status(401).send({

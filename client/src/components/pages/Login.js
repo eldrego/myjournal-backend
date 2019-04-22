@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 // import { toastr } from 'react-redux-toastr';
 import { loginUser, logoutUser } from '../../actions/authActions';
-import checkAuth from '../../utils/checkAuth';
 // import Alert from '../common/Alert';
 
 
@@ -44,21 +42,19 @@ class Login extends Component {
   }
 
   verifyLogin() {
-    if ((checkAuth()) && (this.props.loggedIn)) {
-      this.props.history.push('app/');
+    if (this.props.loggedIn) {
+      this.props.history.push('/');
     }
-
-    this.props.logoutUser(this.props.history);
   }
 
   render() {
     return (
       <div>
-
         <div className="login-box">
           <div className="auth-header">
-            <span className="auth-intro-text">
-              <h4>Login</h4>
+            <span className="auth-intro-text text-center">
+              <p>Welcome</p>
+              <h4>Login to your Account</h4>
             </span>
           </div>
 
@@ -67,9 +63,6 @@ class Login extends Component {
             className="form form-login"
             onSubmit={this.onSubmit}>
             <div className="input-group">
-              <span className="input-group-addon">
-                <FontAwesomeIcon icon="user" />
-              </span>
               <input
                 className="form-control"
                 placeholder="Username"
@@ -78,9 +71,6 @@ class Login extends Component {
             </div>
 
             <div className="input-group">
-              <span className="input-group-addon">
-                <FontAwesomeIcon icon="lock" />
-              </span>
               <input
                 className="form-control"
                 placeholder="Password"
@@ -89,19 +79,8 @@ class Login extends Component {
             </div>
             <button
               className="col-md-12 btn btn-journal"
-              type="submit">Submit</button>
-
+              type="submit">Login</button>
           </form>
-          <div className="login-footer">
-            <div className="row justify-content-md-center">
-              <div className="col-md-5">
-                <Link className="link float-right" to="/app">Home</Link>
-              </div>
-              <div className="col-md-5">
-                <Link className="link float-left" to="/auth/register">Register</Link>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     );
@@ -123,4 +102,4 @@ const mapStateToProps = state => ({
   loggedIn: state.auth.loggedIn
 });
 
-export default connect(mapStateToProps, { loginUser, logoutUser })(Login);
+export default withRouter(connect(mapStateToProps, { loginUser, logoutUser })(Login));

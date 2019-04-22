@@ -9,12 +9,10 @@ const enhancer = compose(
   applyMiddleware(thunk)
 );
 
-/* eslint-disable no-underscore-dangle */
 export const store = createStore(
   reducers,
   composeWithDevTools(enhancer)
 );
-/* eslint-enable */
 
 export const persistor = persistStore(store);
 

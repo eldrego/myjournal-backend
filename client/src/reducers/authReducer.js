@@ -39,7 +39,7 @@ const authReducer = (state = initialState, action) => {
       success: action.payload.success,
       token: action.payload.token,
       message: action.payload.message,
-      user: action.payload.details.username
+      user: action.payload.username
     };
   case authConstants.LOGIN_FAILURE:
     return {
