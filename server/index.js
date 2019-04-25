@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import winston from 'winston';
 import path from 'path';
 
+import database from './config/database';
 import routes from './routes';
 
 require('dotenv').config();
