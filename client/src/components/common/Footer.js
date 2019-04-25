@@ -6,8 +6,8 @@ class Footer extends Component {
       <footer className="footer">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <div className="footer-content">
+            <div className="col-md-12 footer-content">
+              <div className="footer-copyright">
                 <span className="text-muted copy-text">Copyright © 2018
                 My Journal, Lagos, Nigeria.</span>
               </div>

@@ -27,7 +27,12 @@ module.exports = {
         }
       },
       {
-        // test: /\.scss$/,
+        test: /\.(png|jpg)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      {
         test: /\.(sa|sc|c)ss$/,
         use: [
           'style-loader',

@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import winston from 'winston';
 import path from 'path';
 
-import database from './config/database';
 import routes from './routes';
 
 require('dotenv').config();
@@ -27,6 +26,7 @@ app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(`${__dirname}/../client/dist`));
+app.use(express.static(`${__dirname}/../client/src/assets`));
 app.use(express.static(`${__dirname}/./public`));
 
 app.use('/api/v1/', routes);

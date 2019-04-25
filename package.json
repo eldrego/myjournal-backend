@@ -88,6 +88,7 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "chai": "^3.2.0",
     "chai-http": "^4.2.0",
@@ -120,6 +121,7 @@
     "sinon": "^6.1.4",
     "style-loader": "^0.21.0",
     "supertest": "^3.1.0",
+    "url-loader": "^1.1.2",
     "webpack-cli": "^3.0.8",
     "webpack-md5-hash": "0.0.6"
   }
