@@ -4,8 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const SRC_DIR = path.join(__dirname, '/client/src');
-const DIST_DIR = path.join(__dirname, '/client/dist');
+const SRC_DIR = path.join(__dirname, './src');
+const DIST_DIR = path.join(__dirname, './dist');
 
 
 module.exports = {
@@ -13,6 +13,7 @@ module.exports = {
   output: {
     path: DIST_DIR,
     filename: '[name].[chunkhash].js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -20,14 +21,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
       },
       {
-        // test: /\.scss$/,
+        test: /\.(png|jpg)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      {
         test: /\.(sa|sc|c)ss$/,
         use: [
           'style-loader',
@@ -41,12 +47,6 @@ module.exports = {
   optimization: {
     splitChunks: {
       cacheGroups: {
-        // js: {
-        //   test: /\.js$/,
-        //   name: 'commons',
-        //   chunks: 'all',
-        //   minChunks: 7,
-        // },
         css: {
           test: /\.(css|sass|scss)$/,
           name: 'commons',
@@ -69,5 +69,9 @@ module.exports = {
       filename: 'index.html'
     }),
     new WebpackMd5Hash()
-  ]
+  ],
+  devServer: {
+    port: 3000,
+    historyApiFallback: true,
+  },
 };

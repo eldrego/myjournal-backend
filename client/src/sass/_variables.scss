@@ -1,27 +1,25 @@
-// ***********
-// Variables
-// ***********
-$font-stack: 'Work Sans', sans-serif;
+$default-font: 'Work Sans', sans-serif;
 $header-font-stack: 'Assistant', sans-serif;
-$font-weight: 100;
-$font-size: 0.8rem;
+
 $header-font-weight: 300;
 $header-font-size: 1rem;
+
+$normal-weight: 100;
+$font-size: 0.8rem;
+
 $bacis-font-color: #000000;
 $header-font-color: #000000;
-// $green: #01A480;
-// $other-green: #27AB8D;
+
 $burnt-orange: #C67C00;
 $orange: #FF9F01;
+
+$gutter: 2%;
+$gutterdbl: (2 * $gutter);
 
 %border-radius {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-}
-
-%padding-bottom50 {
-  padding-bottom: 50px;
 }
 
 %input-field{
@@ -37,9 +35,10 @@ $orange: #FF9F01;
   margin: 0px;
 }
 
-// ***********
-// Margins and Paddings
-// ***********
 %margin-bottom-16 {
   margin-bottom: 16px;
+}
+
+%padding-bottom50 {
+  padding-bottom: 50px;
 }

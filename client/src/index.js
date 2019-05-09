@@ -10,15 +10,13 @@ import Loading from './components/Loading';
 import App from './components/App';
 // import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
-require('./styles.scss');
+require('./sass/styles.scss');
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <PersistGate loading={<Loading />} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </div>
+    <PersistGate loading={<Loading />} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById('app')
 );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import logo from '../../public/logo.png';
 import { logoutUser } from '../../actions/authActions';
 
 // import UserMenu from './UserMenu';
@@ -49,7 +50,7 @@ class Header extends Component {
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light">
             <Link className="navbar-brand" to="/">
-              <div className="header-logo-box"><img src={'../logo.png'}/></div>
+              <div className="header-logo-box"><img src={logo}/></div>
             </Link>
             <button className="navbar-toggler" type="button"
               data-toggle="collapse" data-target="#navbarNav"

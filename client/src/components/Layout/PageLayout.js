@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 
 const PageLayout = (props) => {
   return (
-    <div>
+    <Fragment>
       <Header history={props.history}/>
       <main className="container contentContainer">
         { props.children }
       </main>
       <Footer />
-    </div>
+    </Fragment>
   );
 };
 
@@ -22,10 +22,3 @@ PageLayout.propTypes = {
 };
 
 export default PageLayout;
-
-// <Switch>
-//   <Route path={`${props.match.path}/`} exact component={Home} />
-//   <Route path={`${props.match.path}/create-note`} exact component={AddNote} />
-//   <Route path={`${props.match.path}/notes`} exact component={UserNotes} />
-//   <Route path={`${props.match.path}/notes/:noteID`} exact component={OneNote} />
-// </Switch>

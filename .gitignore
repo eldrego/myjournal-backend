@@ -77,11 +77,5 @@ tests/
 # "test:server": "npm run prod:client && cross-env NODE_ENV=test && npm run cover",
 # "test:server": "npm run prod:client && cross-env NODE_ENV=test && _mocha --recursive server/tests/ --require babel-polyfill",
 
-
-    # "babel-eslint": "^10.0.1",
-    # "babel-jest": "^24.1.0",
-    # "babel-loader": "^8.0.5",
-    # "babel-istanbul": "^0.12.2",
-    # "babel-plugin-istanbul": "^4.1.6",
-    # "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    # "babel-register": "^6.26.0",
+# css files not in use
+old-styles.scss
