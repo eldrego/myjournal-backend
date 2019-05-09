@@ -1,8 +1,6 @@
 import React from 'react';
 import {
-  Route,
   BrowserRouter,
-  browserHistory,
   Switch
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -25,7 +23,7 @@ import OneNote from './pages/OneNote';
 library.add(faCoffee, faSpinner, faStroopwafel, faLink, faLock, faUser, faPlus, faTrash);
 
 const App = () => (
-  <BrowserRouter history={browserHistory}>
+  <BrowserRouter>
     <Switch>
       <AppRoute exact path="/auth" layout={AuthLayout} component={Authenticator}/>
       <AppRoute exact path="/" layout={PageLayout} component={Home}/>

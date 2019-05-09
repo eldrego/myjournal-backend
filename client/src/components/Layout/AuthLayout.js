@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import logo from '../../public/logo.png';
 
 const AuthLayout = (props) => {
   return (
@@ -11,7 +12,7 @@ const AuthLayout = (props) => {
               <div className="col-md-7">
                 <div className="auth-box form-margin">
                   <div className="logo-box">
-                    <img src={'../logo.png'}/>
+                    <img src={logo}/>
                   </div>
                   { props.children }
                 </div>

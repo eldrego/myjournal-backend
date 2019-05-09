@@ -3,7 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import winston from 'winston';
-import path from 'path';
 
 import database from './config/database';
 import routes from './routes';
@@ -20,7 +19,7 @@ app.use(cors({
   exposedHeaders: ['sessionId'],
   origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false
+  preflightContinue: false,
 }));
 
 app.use(bodyParser.json({ extended: false }));
@@ -32,8 +31,8 @@ app.use(express.static(`${__dirname}/./public`));
 
 app.use('/api/v1/', routes);
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/../client/dist/index.html`));
+app.get('/', (req, res) => {
+  res.send({ message: 'Access endpoint /api/v1/' });
 });
 
 if (!module.parent) {
