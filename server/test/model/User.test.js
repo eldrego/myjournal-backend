@@ -57,7 +57,7 @@ describe('User Model', () => {
     });
 
     after((done) => {
-      User.remove({}, () => {
+      User.deleteMany({}, () => {
         done();
       });
     });

@@ -25,7 +25,7 @@ const loginDetails = {
 
 xdescribe('Feature', () => {
   before((done) => {
-    User.remove({}, () => {
+    User.deleteMany({}, () => {
       done();
     });
   });

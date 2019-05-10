@@ -13,14 +13,14 @@ exports.getAll = (req, res) => {
       res.send({
         success: true,
         message: 'success',
-        notes: items
+        notes: items,
       });
     })
     .catch((error) => {
       res.status(404).send({
         success: false,
         message: 'An error has occurred',
-        errors: `${error.message}`
+        errors: `${error.message}`,
 
       });
     });
@@ -47,7 +47,7 @@ exports.getUserNotes = (req, res) => {
     res.send({
       success: true,
       message: 'success',
-      notes: items
+      notes: items,
     });
   }).catch((error) => {
     res.status(404).send({
@@ -63,7 +63,7 @@ exports.create = (req, res) => {
     return res.status(422).send({
       success: false,
       message: 'An error has occurred',
-      errors: errors.array()
+      errors: errors.array(),
     });
   }
 
