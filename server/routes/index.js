@@ -20,14 +20,11 @@ router.post('/login', validate.login, users.login);
 router.get('/profile', verifyToken, users.profile);
 
 // Notes
-router.get('/all-notes', notes.getAll);
-router.get('/notes', verifyToken, notes.getUserNotes);
-router.post('/notes',
-  verifyToken,
-  validate.createNote,
-  notes.create);
-router.get('/notes/:id', verifyToken, notes.getOne);
-router.delete('/notes/:id', verifyToken, notes.delete);
+router.get('/notes', notes.getAll);
+router.get('/user-notes', notes.getUserNotes);
+router.post('/notes', validate.createNote, notes.create);
+router.get('/notes/:id', notes.getOne);
+router.delete('/notes/:id', notes.delete);
 
 // Categories
 router.get('/categories', verifyToken, category.getAll);

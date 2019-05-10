@@ -15,7 +15,7 @@ const registerDetails = {
   username: 'moe',
   password: 'password',
   email: 'moe@email.com',
-  fullname: 'Moe Doe'
+  fullname: 'Moe Doe',
 };
 
 const loginDetails = {
@@ -23,7 +23,7 @@ const loginDetails = {
   password: 'password',
 };
 
-describe('Feature', () => {
+xdescribe('Feature', () => {
   let userToken = null;
   before((done) => {
     User.create(registerDetails, () => {});
@@ -37,13 +37,13 @@ describe('Feature', () => {
   });
 
   beforeEach((done) => {
-    Note.remove({}, () => {
+    Note.deleteMany({}, () => {
       done();
     });
   });
 
   after((done) => {
-    User.remove({}, () => {
+    User.deleteMany({}, () => {
       done();
     });
   });
