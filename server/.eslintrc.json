@@ -7,6 +7,19 @@
   "env": {
     "mocha":   true
   },  
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "spread": true,
+    "templateStrings": true
+  },
   "parser": "babel-eslint",
   "rules": {
     "max-len": [1, 120, 2],
