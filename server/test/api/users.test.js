@@ -23,7 +23,7 @@ const loginDetails = {
   password: registerDetails.password
 };
 
-xdescribe('Feature', () => {
+describe('Feature', () => {
   before((done) => {
     User.deleteMany({}, () => {
       done();
@@ -36,7 +36,7 @@ xdescribe('Feature', () => {
         .post('/api/v1/register')
         .send(registerDetails)
         .end((error, res) => {
-          res.should.have.status(200);
+          res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.success.should.equal(true);
           res.body.message.should.equal('User successful created');

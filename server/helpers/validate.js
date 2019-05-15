@@ -34,7 +34,16 @@ const validate = {
     check('category')
       .not().isEmpty()
       .withMessage('Please provide the identifier for the category in the database')
-  ]
+  ],
+  // updateNote: [
+  //   check('title').not().isEmpty()
+  //     .withMessage('Please enter a valid not title'),
+  //   check('content').not().isEmpty()
+  //     .withMessage('Please a content for this note'),
+  //   check('category')
+  //     .not().isEmpty()
+  //     .withMessage('Please provide the identifier for the category in the database')
+  // ]
 };
 
 export default validate;

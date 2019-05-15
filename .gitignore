@@ -79,3 +79,5 @@ tests/
 
 # css files not in use
 old-styles.scss
+
+initUsers

@@ -5,8 +5,11 @@ mongoose.Promise = global.Promise;
 
 const { db: { uri } } = config;
 
-mongoose.connect(uri, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
+
+mongoose.connect(uri, { useNewUrlParser: true });
+
 const database = mongoose.connection;
 
 export default database;

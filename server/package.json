@@ -25,7 +25,7 @@
     "dev": "cross-env NODE_ENV=dev nodemon index.js --exec babel-node",
     "prod": "cross-env NODE_ENV=prod node ./build/index.js",
     "coverage": "nyc npm run test",
-    "open-cov": "open coverage/lcov-report/index.html"
+    "report": "open coverage/lcov-report/index.html"
   },
   "jest": {
     "verbose": true,
@@ -54,8 +54,11 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
+    "@babel/runtime": "^7.0.0-beta.55",
     "babel-eslint": "^10.0.1",
     "chai": "^3.2.0",
     "chai-http": "^4.2.0",
@@ -65,6 +68,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-mocha": "^5.3.0",
     "isparta": "^4.1.1",
     "istanbul": "^0.4.5",
     "jest": "^23.3.0",
