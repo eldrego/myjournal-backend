@@ -14,17 +14,18 @@ router.get('/', (req, res) => {
 });
 router.get('/message', notes.message);
 
-// Authentication
+// Authentication - done
 router.post('/register', validate.register, users.register);
 router.post('/login', validate.login, users.login);
 router.get('/profile', verifyToken, users.profile);
 
 // Notes
 router.get('/notes', notes.getAll);
-router.get('/user-notes', notes.getUserNotes);
-router.post('/notes', validate.createNote, notes.create);
-router.get('/notes/:id', notes.getOne);
-router.delete('/notes/:id', notes.delete);
+router.get('/user-notes', verifyToken, notes.getUserNotes);
+router.get('/notes/:id', verifyToken, notes.getOne);
+router.post('/notes', verifyToken, validate.createNote, notes.create);
+router.delete('/notes/:id', verifyToken, notes.delete);
+router.patch('/notes/:id', verifyToken, notes.update);
 
 // Categories
 router.get('/categories', verifyToken, category.getAll);

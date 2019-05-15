@@ -13,7 +13,8 @@ const verifyToken = (req, res, next) => {
       } else {
         return res.send({
           success: false,
-          message: `Failed to authenticate token. - ${error}`
+          message: `Failed to authenticate token. - ${error}`,
+          token
         });
       }
     });

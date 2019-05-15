@@ -23,7 +23,7 @@ const loginDetails = {
   password: 'password',
 };
 
-xdescribe('Feature', () => {
+describe('Feature', () => {
   let userToken = null;
   before((done) => {
     User.create(registerDetails, () => {});
@@ -100,7 +100,7 @@ xdescribe('Feature', () => {
         .set('Authorization', userToken)
         .send(note)
         .end((error, res) => {
-          res.should.have.status(200);
+          res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.success.should.equal(true);
           res.body.message.should.equal('success');
