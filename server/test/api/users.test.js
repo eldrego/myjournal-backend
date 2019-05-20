@@ -1,12 +1,8 @@
-
-process.env.NODE_ENV = 'test';
-
-const chaiHttp = require('chai-http');
-// const sinon = require('sinon');
-const chai = require('chai');
-
-const server = require('../../index.js');
-const { User } = require('../../models/User');
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import server from '../../index';
+import { User } from '../../models/User';
+import generateToken from '../../helpers/generateToken';
 
 const should = chai.should();
 chai.use(chaiHttp);
@@ -31,6 +27,29 @@ describe('Feature', () => {
   });
 
   describe('Register User', () => {
+    it('should return a validation errors when fields are incomplete', (done) => {
+      chai.request(server)
+        .post('/api/v1/register')
+        .send(loginDetails)
+        .end((error, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.errors.should.be.a('array');
+          res.body.success.should.equal(false);
+          res.body.errors.should.be.an('array').that.includes({
+            location: 'body',
+            param: 'fullname',
+            msg: 'Please provide your fullname'
+          });
+          res.body.errors.should.be.an('array').that.includes({
+            location: 'body',
+            param: 'email',
+            msg: 'Please provide a valid email address'
+          });
+          done();
+        });
+    });
+
     it('should return a success message after creating a new user', (done) => {
       chai.request(server)
         .post('/api/v1/register')
@@ -43,9 +62,22 @@ describe('Feature', () => {
           done();
         });
     });
+
+    it('should return an error message is already associated with another account', (done) => {
+      chai.request(server)
+        .post('/api/v1/register')
+        .send(registerDetails)
+        .end((error, res) => {
+          res.should.have.status(409);
+          res.body.should.be.a('object');
+          res.body.success.should.equal(false);
+          res.body.message.should.equal('The email address you have entered is already associated with another account.');
+          done();
+        });
+    });
   });
 
-  describe('Loging User', () => {
+  describe('User Login', () => {
     it('should return a success message after logging in with valid details', (done) => {
       chai.request(server)
         .post('/api/v1/login')
@@ -94,6 +126,73 @@ describe('Feature', () => {
           // res.body.should.have.property('error');
           res.body.message.should.equal('Authentication failed. User not found.');
           done();
+        });
+    });
+
+    it('should return a validation errors when fields are incomplete', (done) => {
+      const missingDetails = {
+        password: registerDetails.password
+      };
+
+      chai.request(server)
+        .post('/api/v1/login')
+        .send(missingDetails)
+        .end((error, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.errors.should.be.a('array');
+          res.body.success.should.equal(false);
+          res.body.errors.should.be.an('array').that.includes({
+            location: 'body',
+            param: 'username',
+            msg: 'Please provide your username'
+          });
+          done();
+        });
+    });
+  });
+
+  describe('User Profile', () => {
+    const user = {};
+    before(async () => {
+      User.create(registerDetails, () => {});
+      const res = await chai.request(server)
+        .post('/api/v1/login')
+        .send(loginDetails);
+
+      user.token = res.body.token;
+    });
+
+    it('should return the users profile successfully', () => {
+      chai.request(server)
+        .get('/api/v1/profile')
+        .set('Authorization', user.token)
+        .end((error, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.success.should.equal(true);
+          res.body.should.have.property('profile');
+          res.body.message.should.equal('Your details have been retrieved.');
+          res.body.profile.email.should.equal(registerDetails.email);
+          res.body.profile.username.should.equal(loginDetails.username);
+        });
+    });
+
+    it('should return an error message for a users that does not exist', () => {
+      const signature = {
+        username: 'fakeUser',
+        id: '5c0e89bb48d303ac6dc7bbd3'
+      };
+  
+      const token = generateToken(signature);
+      chai.request(server)
+        .get('/api/v1/profile')
+        .set('Authorization', token)
+        .end((error, res) => {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.body.success.should.equal(false);
+          res.body.message.should.equal('User details not found.');
         });
     });
   });

@@ -12,7 +12,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.send({ message: 'Welcome to My Journal Application API' });
 });
-router.get('/message', notes.message);
 
 // Authentication - done
 router.post('/register', validate.register, users.register);

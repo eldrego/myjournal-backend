@@ -1,11 +1,5 @@
 import { validationResult } from 'express-validator/check';
 import { Note } from '../models/Note';
-// import { filterNotes } from '../helpers/query';
-// import errorParser from '../helpers/errorParser';
-
-exports.message = (req, res) => {
-  res.send({ message: 'Welcome to My Journal Application API' });
-};
 
 exports.getAll = async (req, res) => {
   try {

@@ -1,7 +1,4 @@
-process.env.NODE_ENV = 'test';
-
 const chaiHttp = require('chai-http');
-// const sinon = require('sinon');
 const chai = require('chai');
 
 const server = require('../../index.js');
@@ -24,26 +21,18 @@ const loginDetails = {
 };
 
 describe('Feature', () => {
-  let userToken = null;
-  before((done) => {
+  const user = {};
+  before(async () => {
     User.create(registerDetails, () => {});
-    chai.request(server)
+    const res = await chai.request(server)
       .post('/api/v1/login')
-      .send(loginDetails)
-      .end((error, res) => {
-        userToken = res.body.token;
-        done();
-      });
+      .send(loginDetails);
+
+    user.token = res.body.token;
   });
 
-  beforeEach((done) => {
+  before((done) => {
     Note.deleteMany({}, () => {
-      done();
-    });
-  });
-
-  after((done) => {
-    User.deleteMany({}, () => {
       done();
     });
   });
@@ -52,7 +41,7 @@ describe('Feature', () => {
     it('should GET all notes', (done) => {
       chai.request(server)
         .get('/api/v1/notes')
-        .set('Authorization', userToken)
+        .set('Authorization', user.token)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -76,7 +65,7 @@ describe('Feature', () => {
 
       chai.request(server)
         .post('/api/v1/notes')
-        .set('Authorization', userToken)
+        .set('Authorization', user.token)
         .send(note)
         .end((error, res) => {
           res.should.have.status(422);
@@ -97,7 +86,7 @@ describe('Feature', () => {
 
       chai.request(server)
         .post('/api/v1/notes')
-        .set('Authorization', userToken)
+        .set('Authorization', user.token)
         .send(note)
         .end((error, res) => {
           res.should.have.status(201);
@@ -108,6 +97,51 @@ describe('Feature', () => {
           res.body.note.title.should.equal('The Lord of the Rings');
           done();
         });
+    });
+
+    it('should GET all notes after creating a note successfully', (done) => {
+      chai.request(server)
+        .get('/api/v1/notes')
+        .set('Authorization', user.token)
+        .end((error, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.success.should.equal(true);
+          res.body.message.should.equal('success');
+          res.body.should.have.property('notes');
+          res.body.notes.should.be.a('array');
+          res.body.notes.length.should.be.eql(1);
+          done();
+        });
+    });
+  });
+
+  describe('Get One Note', () => {
+    const note = {};
+    before(async () => {
+      const res = await chai.request(server).get('/api/v1/notes');
+      note.id = res.body.notes[0]._id;
+    });
+
+    it('should return details of just one note', (done) => {
+      chai.request(server)
+        .get(`/api/v1/notes/${note.id}`)
+        .set('Authorization', user.token)
+        .end((error, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.success.should.equal(true);
+          res.body.message.should.equal('success');
+          res.body.should.have.property('note');
+          res.body.note._id.should.equal(note.id);
+          done();
+        });
+    });
+  });
+
+  after((done) => {
+    User.deleteMany({}, () => {
+      done();
     });
   });
 });
