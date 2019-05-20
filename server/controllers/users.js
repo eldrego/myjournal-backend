@@ -34,7 +34,7 @@ exports.register = async (req, res) => {
         // Send an email to the user on successful registration mailer.sendMail(email, (err, info)
       }
     } else {
-      res.status(400).json({
+      res.status(409).json({
         success: false,
         message: 'The email address you have entered is already associated with another account.'
       });

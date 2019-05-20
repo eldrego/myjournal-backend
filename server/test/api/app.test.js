@@ -1,21 +1,29 @@
-const request = require('supertest');
-const { expect } = require('chai');
+const chaiHttp = require('chai-http');
+const chai = require('chai');
+
 const server = require('../../index.js');
+
+const should = chai.should();
+chai.use(chaiHttp);
 
 describe('Server', () => {
   it('should return 200 if the server is running', (done) => {
-    request(server)
+    chai.request(server)
       .get('/')
-      .expect(200, done);
+      .end((error, res) => {
+        res.should.have.status(200);
+        done();
+      });
   });
 
-  it('should respond with an htmL file when root is requested', (done) => {
-    request(server)
-      .get('/')
-      .expect(200)
-      .end((err) => {
-        expect('type', 'text/html');
-        done(err);
+  it('should display a welcome message at the root route', (done) => {
+    chai.request(server)
+      .get('/api/v1')
+      .end((error, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.message.should.equal('Welcome to My Journal Application API');
+        done();
       });
   });
 });

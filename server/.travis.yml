@@ -6,6 +6,6 @@ services:
   - mongodb
 
 script:
-  - "npm run test:server"
+  - "npm run coverage"
 
 after_script: "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

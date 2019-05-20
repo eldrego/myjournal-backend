@@ -31,10 +31,6 @@ app.use(express.static(`${__dirname}/./public`));
 
 app.use('/api/v1/', routes);
 
-app.get('/', (req, res) => {
-  res.send({ message: 'Access endpoint /api/v1/' });
-});
-
 if (!module.parent) {
   app.server.listen(port);
   winston.info(`Started on port ${port}`, 'info');
