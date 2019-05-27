@@ -29,6 +29,10 @@ app.use(express.static(`${__dirname}/../client/dist`));
 app.use(express.static(`${__dirname}/../client/src/assets`));
 app.use(express.static(`${__dirname}/./public`));
 
+app.get('/', (req, res) => {
+  res.send({ message: 'Root - Access endpoints using /api/v1' });
+});
+
 app.use('/api/v1/', routes);
 
 if (!module.parent) {
