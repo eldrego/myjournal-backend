@@ -1,9 +1,5 @@
 # My Journal
 
-
-[![Build Status](https://travis-ci.org/eldrego/myJournal.svg?branch=staging)](https://travis-ci.org/eldrego/myJournal) [![Coverage Status](https://coveralls.io/repos/github/eldrego/myJournal/badge.svg?branch=staging)](https://coveralls.io/github/eldrego/myJournal?branch=staging) [![Hound](https://img.shields.io/badge/Protected_by-Hound-a873d1.svg)](https://travis-ci.org/eldrego/react-redux-starter-kit)
-
-
 ## Requirements
 * node `8.9.0`
 * npm `^6.0.1`
