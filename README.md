@@ -1,5 +1,7 @@
 # My Journal
 
+[![Coverage Status](https://coveralls.io/repos/github/eldrego/myjournal-backend/badge.svg?branch=staging)](https://coveralls.io/github/eldrego/myjournal-backend?branch=staging) [![Build Status](https://travis-ci.org/eldrego/myjournal-backend.svg?branch=staging)](https://travis-ci.org/eldrego/myjournal-backend)
+
 ## Requirements
 * node `8.9.0`
 * npm `^6.0.1`
