@@ -12,6 +12,8 @@ describe('Server', () => {
       .get('/')
       .end((error, res) => {
         res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.message.should.equal('Root - Access endpoints using /api/v1');
         done();
       });
   });
