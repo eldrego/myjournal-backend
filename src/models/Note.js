@@ -6,7 +6,7 @@ export const schema = {
   },
   title: {
     type: String,
-    required: [true, 'All notes should have a title'],
+    required: [true, 'All notes should have a title']
   },
   content: {
     type: String,

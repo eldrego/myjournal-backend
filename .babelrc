@@ -8,6 +8,6 @@
     "@babel/preset-env"
   ],
   "plugins": [
-    "@babel/plugin-transform-runtime"
+    "@babel/transform-runtime"
   ]
 }

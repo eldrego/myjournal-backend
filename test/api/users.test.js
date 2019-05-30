@@ -1,8 +1,8 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import server from '../../index';
-import { User } from '../../models/User';
-import generateToken from '../../helpers/generateToken';
+import server from '../../src/index';
+import { User } from '../../src/models/User';
+import generateToken from '../../src/helpers/generateToken';
 
 const should = chai.should();
 chai.use(chaiHttp);
