@@ -122,7 +122,7 @@ describe('Feature', () => {
         });
     });
 
-    it('should not be able to create another note with the same title', (done) => {
+    xit('should not be able to create another note with the same title', (done) => {
       const note = {
         title: 'The Lord of the Rings',
         content: 'The Lord of the Rings is a film series directed by Peter Jackson.',
