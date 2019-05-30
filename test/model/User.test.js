@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { User, schema } from '../../models/User';
+import { User } from '../../src/models/User';
 
 let user;
 
