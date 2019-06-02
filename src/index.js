@@ -31,5 +31,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/', routes);
 
-app.server.listen(port);
+app.server.listen(port, () => {
+  console.log('server running now');
+});
+
 module.exports = app;
