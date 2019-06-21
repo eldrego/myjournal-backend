@@ -3,8 +3,13 @@ import { Note } from '../models/Note';
 
 exports.getAll = async (req, res) => {
   try {
-    // const notes = await filterNotes(Note).sort({ createdAt: -1 });
-    const notes = await Note.find({}).lean();
+    const { user } = req.decoded;
+    const notes = await Note.find({
+      author: user.id
+    })
+      .populate('category', 'name')
+      .populate('author', 'username')
+      .lean();
     if (notes) {
       res.status(200).json({
         success: true,

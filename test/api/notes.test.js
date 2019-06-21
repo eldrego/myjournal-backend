@@ -163,7 +163,7 @@ describe('Feature', () => {
   describe('Get One Note', () => {
     const note = {};
     before(async () => {
-      const res = await chai.request(server).get('/api/v1/notes');
+      const res = await chai.request(server).get('/api/v1/notes').set('Authorization', user.token);
       note.id = res.body.notes[0]._id;
     });
 
@@ -192,46 +192,6 @@ describe('Feature', () => {
           res.body.message.should.equal('success');
           res.body.should.have.property('note');
           res.body.note._id.should.equal(note.id);
-          done();
-        });
-    });
-  });
-
-  describe('Get User Notes', () => {
-    it('should return the users created notes', (done) => {
-      const { user: { id } } = decode(user.token);
-      chai.request(server)
-        .get('/api/v1/user-notes')
-        .set('Authorization', user.token)
-        .send(id)
-        .end((error, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.success.should.equal(true);
-          res.body.message.should.equal('success');
-          res.body.should.have.property('notes');
-          res.body.notes.should.be.a('array');
-          res.body.notes.length.should.be.eql(1);
-          done();
-        });
-    });
-  });
-
-  describe('Update User Notes', () => {
-    it('should update users created notes successfully', (done) => {
-      const { user: { id } } = decode(user.token);
-      chai.request(server)
-        .get('/api/v1/user-notes')
-        .set('Authorization', user.token)
-        .send(id)
-        .end((error, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.success.should.equal(true);
-          res.body.message.should.equal('success');
-          res.body.should.have.property('notes');
-          res.body.notes.should.be.a('array');
-          res.body.notes.length.should.be.eql(1);
           done();
         });
     });

@@ -19,8 +19,7 @@ router.post('/login', validate.login, users.login);
 router.get('/profile', verifyToken, users.profile);
 
 // Notes
-router.get('/notes', notes.getAll);
-router.get('/user-notes', verifyToken, notes.getUserNotes);
+router.get('/notes', verifyToken, notes.getAll);
 router.get('/notes/:id', verifyToken, notes.getOne);
 router.post('/notes', verifyToken, validate.createNote, notes.create);
 router.delete('/notes/:id', verifyToken, notes.delete);
